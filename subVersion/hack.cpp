@@ -1,4 +1,4 @@
-/*
+﻿/*
 	Copyright 2016-2017 sub1to
 
 	This file is part of subVersion GTA:O SC External Hack.
@@ -371,28 +371,28 @@ void hack::setImpactExplosion(ImpactExplosionEnum arg)
 	this->m_explosion = arg;
 }
 
-//void hack::fillAllAmmo(float* arg)
-//{
-//	for (size_t i = 0; i < 0x400; i++)
-//	{
-//		DWORD_PTR dwpWeapon, dwpAmmoInfo, dwpAmmoPtr1, dwpAmmoPtr2;
-//		DWORD dwCurAmmo, dwMaxAmmo;
-//		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpWeaponBase + i, &dwpWeapon);
-//		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)dwpWeapon + OFFSET_WEAPON_AMMOINFO, &dwpAmmoInfo);
-//
-//		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)dwpAmmoInfo + OFFSET_WEAPON_AMMOINFO_CUR_1, &dwpAmmoPtr1);
-//		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)dwpAmmoPtr1 + OFFSET_WEAPON_AMMOINFO_CUR_2, &dwpAmmoPtr2);
-//		g_pMemMan->readMem<DWORD>((DWORD_PTR)dwpAmmoPtr2 + OFFSET_WEAPON_AMMOINFO_CURAMMO, &dwCurAmmo);
-//		if (dwCurAmmo >= 0 && dwCurAmmo <= 9999)
-//		{
-//			g_pMemMan->readMem<DWORD>((DWORD_PTR)dwpAmmoInfo + OFFSET_WEAPON_AMMOINFO_MAX, &dwMaxAmmo);
-//			if (dwMaxAmmo >= 20 && dwMaxAmmo <= 9999 && dwCurAmmo < dwMaxAmmo)
-//			{
-//				g_pMemMan->writeMem<DWORD>((DWORD_PTR)dwpAmmoPtr2 + OFFSET_WEAPON_AMMOINFO_CURAMMO, &dwMaxAmmo);
-//			}
-//		}
-//	}
-//}
+void hack::fillAllAmmo()
+{
+	for (size_t i = 0; i < 0x400; i++)
+	{
+		DWORD_PTR dwpWeapon, dwpAmmoInfo, dwpAmmoPtr1, dwpAmmoPtr2;
+		DWORD dwCurAmmo, dwMaxAmmo;
+		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpWeaponBase + i, &dwpWeapon);
+		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)dwpWeapon + OFFSET_WEAPON_AMMOINFO, &dwpAmmoInfo);
+
+		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)dwpAmmoInfo + OFFSET_WEAPON_AMMOINFO_CUR_1, &dwpAmmoPtr1);
+		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)dwpAmmoPtr1 + OFFSET_WEAPON_AMMOINFO_CUR_2, &dwpAmmoPtr2);
+		g_pMemMan->readMem<DWORD>((DWORD_PTR)dwpAmmoPtr2 + OFFSET_WEAPON_AMMOINFO_CURAMMO, &dwCurAmmo);
+		if (dwCurAmmo >= 0 && dwCurAmmo <= 9999)
+		{
+			g_pMemMan->readMem<DWORD>((DWORD_PTR)dwpAmmoInfo + OFFSET_WEAPON_AMMOINFO_MAX, &dwMaxAmmo);
+			if (dwMaxAmmo >= 20 && dwMaxAmmo <= 9999 && dwCurAmmo < dwMaxAmmo)
+			{
+				g_pMemMan->writeMem<DWORD>((DWORD_PTR)dwpAmmoPtr2 + OFFSET_WEAPON_AMMOINFO_CURAMMO, &dwMaxAmmo);
+			}
+		}
+	}
+}
 
 void hack::healVehicle()
 {

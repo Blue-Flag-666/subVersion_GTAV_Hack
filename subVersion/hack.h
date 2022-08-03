@@ -1,4 +1,4 @@
-/*
+﻿/*
 	Copyright 2016-2017 sub1to
 
 	This file is part of subVersion GTA:O SC External Hack.
@@ -80,7 +80,7 @@ class hack : public trainer
 		void	killHostilityNpcVeh();
 		void	renderPlayerList();
 		void	setImpactExplosion(ImpactExplosionEnum arg);
-		//void	fillAllAmmo(float* arg);
+		void	fillAllAmmo();
 		void	healVehicle();
 		void	healPlayer();
 		void	suicide();

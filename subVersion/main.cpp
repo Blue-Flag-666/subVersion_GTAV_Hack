@@ -1,4 +1,4 @@
-/*
+Ôªø/*
 	Copyright 2016-2017 sub1to
 
 	This file is part of subVersion GTA:O SC External Hack.
@@ -29,9 +29,9 @@ int			g_iFeature[MAX_MENU_FEATURES]	= {};
 int			g_iIndex;
 int			g_iFeaturePlayerList[32];
 std::pair<int, std::wstring> tbl_SessionMItems[] = {
-	{-1,L"¿Îø™œﬂ…œ"},{0,L"π´π≤’Ωæ÷"},{1,L"¥¥Ω®π´π≤’Ωæ÷"},{12,L"º”»Î∞Ôª·ªÔ∞È"},
-	{2,L"ÀΩ»À∞Ôª·’Ωæ÷"},{3,L"∞Ôª·’Ωæ÷"},{9,L"º”»Î∫√”—"},{6,L"ÀΩ»À∫√”—’Ωæ÷"},
-	{10,L"µ•»À’Ωæ÷"},{11,L"Ωˆœﬁ—˚«Î’Ωæ÷"}
+	{-1,L"Á¶ªÂºÄÁ∫ø‰∏ä"},{0,L"ÂÖ¨ÂÖ±ÊàòÂ±Ä"},{1,L"ÂàõÂª∫ÂÖ¨ÂÖ±ÊàòÂ±Ä"},{12,L"Âä†ÂÖ•Â∏Æ‰ºö‰ºô‰º¥"},
+	{2,L"ÁßÅ‰∫∫Â∏Æ‰ºöÊàòÂ±Ä"},{3,L"Â∏Æ‰ºöÊàòÂ±Ä"},{9,L"Âä†ÂÖ•Â•ΩÂèã"},{6,L"ÁßÅ‰∫∫Â•ΩÂèãÊàòÂ±Ä"},
+	{10,L"Âçï‰∫∫ÊàòÂ±Ä"},{11,L"‰ªÖÈôêÈÇÄËØ∑ÊàòÂ±Ä"}
 };
 
 bool		g_bKillSwitch	= false;
@@ -67,7 +67,7 @@ int __stdcall WinMain(	HINSTANCE	hInstance,
 {
 	if (FindWindow("sub1toOverlay", nullptr))	//make sure the hack is not already running
 	{
-		MessageBoxW(nullptr, L"subVersion“—‘⁄‘À––£¨«ÎŒ÷ÿ∏¥¥Úø™!", L"¥ÌŒÛ!", MB_OK);
+		MessageBoxW(nullptr, L"subVersionÂ∑≤Âú®ËøêË°åÔºåËØ∑ÂãøÈáçÂ§çÊâìÂºÄ!", L"ÈîôËØØ!", MB_OK);
 		exit(0);
 	}
 
@@ -78,161 +78,161 @@ int __stdcall WinMain(	HINSTANCE	hInstance,
 	g_pHack			= new hack;
 
 	LPCSTR	szWindowTitleTarget	= "Grand Theft Auto V";
-	LPCWSTR	szWindowTitle		= L"subVersion mAsk°„÷ÿ÷∆∞Ê v1.3.7";
+	LPCWSTR	szWindowTitle		= L"subVersion Blue-Flag ÈáçÂà∂Áâà v1.3.7";
 	g_pMemMan->setWindowName(szWindowTitleTarget);
 	g_pD3D9Render->m_szWindowTitle = szWindowTitle;
 
-	g_pSettings->addFeatureCategory(L"ÕÊº“");		//0
-	g_pSettings->addFeatureCategory(L"Œ‰∆˜");		//1
-	g_pSettings->addFeatureCategory(L"‘ÿæﬂ");		//2
-	g_pSettings->addFeatureCategory(L"¥´ÀÕ");		//3
-	g_pSettings->addFeatureCategory(L"‘”œÓ");		//4
+	g_pSettings->addFeatureCategory(L"Áé©ÂÆ∂");		//0
+	g_pSettings->addFeatureCategory(L"Ê≠¶Âô®");		//1
+	g_pSettings->addFeatureCategory(L"ËΩΩÂÖ∑");		//2
+	g_pSettings->addFeatureCategory(L"‰º†ÈÄÅ");		//3
+	g_pSettings->addFeatureCategory(L"ÊùÇÈ°π");		//4
 	
 
-	g_iFeature[FEATURE_P_TRUEGOD]			= g_pSettings->addFeature(0, -1, L"Œﬁµ–", feat_toggle, "trueGodMode");
-	g_iFeature[FEATURE_P_GOD]				= g_pSettings->addFeature(0, -1, L"∞ÎŒﬁµ–", feat_toggle, "godMode");
-	g_iFeature[FEATURE_P_HEAL]				= g_pSettings->addFeature(0, -1, L"÷Œ¡∆", feat_btn, &hack::healPlayer);
-	g_iFeature[FEATURE_P_SUICIDE]			= g_pSettings->addFeature(0, -1, L"◊‘…±", feat_btn, &hack::suicide);
-	g_iFeature[FEATURE_P_WANTED]			= g_pSettings->addFeature(0, -1, L"Õ®º©µ»º∂", feat_slider, "wanted", 0.f, 5.f, .2f);
-	g_iFeature[FEATURE_P_NEVERWANTED]		= g_pSettings->addFeature(0, -1, L"”¿≤ªÕ®º©", feat_toggle, "neverWanted");
-	int npc = g_pSettings->addFeature(0, -1, L"NPCøÿ÷∆ >>", feat_parent);
-	g_pSettings->addFeature(-1, npc, L"…±À¿À˘”–NPC", feat_btn, &hack::killAllNpc);
-	g_pSettings->addFeature(-1, npc, L"…±À¿À˘”–µ–∂‘NPC", feat_btn, &hack::killHostilityNpc);
-	g_pSettings->addFeature(-1, npc, L"¥›ªŸÀ˘”–µ–∂‘NPCµƒ‘ÿæﬂ", feat_btn, &hack::killHostilityNpcVeh);
-	g_pSettings->addFeature(-1, npc, L"¥´ÀÕÀ˘”–NPCµΩŒ“", feat_btn, &hack::tpAllNpc);
-	g_pSettings->addFeature(-1, npc, L"¥´ÀÕÀ˘”–µ–∂‘NPCµΩŒ“", feat_btn, &hack::tpHostilityNpc);
-	g_iFeature[FEATURE_P_ANTINPC]			= g_pSettings->addFeature(-1, npc, L"∑¥NPC", feat_toggle, "antiNpc");
-	g_iFeature[FEATURE_P_NPC_IGNORE]		= g_pSettings->addFeature(-1, npc, L"NPCŒﬁ ”ÕÊº“", feat_toggle, "npcIgnore");
-	g_iFeature[FEATURE_P_RUNSPD]			= g_pSettings->addFeature(0, -1, L"±º≈‹ÀŸ∂»", feat_slider, "runSpd", 1.f, 5.f);
-	g_iFeature[FEATURE_P_SWIMSPD]			= g_pSettings->addFeature(0, -1, L"”Œ”æÀŸ∂»", feat_slider, "swimSpd", 1.f, 5.f);
-	g_iFeature[FEATURE_P_SUPER_PUNCH]		= g_pSettings->addFeature(0, -1, L"Ω¸’Ωª˜ÕÀ±∂ ˝", feat_slider, "superPunch", 0.f, 1000.f, (float)1.f / 10.f);
-	g_iFeature[FEATURE_P_SUPERJUMP]			= g_pSettings->addFeature(0, -1, L"≥¨º∂Ã¯‘æ", feat_toggle, "superJump");
-	g_iFeature[FEATURE_P_EXPLOSIVEMELEE]	= g_pSettings->addFeature(0, -1, L"±¨’®Ω¸’Ω", feat_toggle, "explMelee");
-	g_iFeature[FEATURE_P_UNDEAD_OFFRADAR]	= g_pSettings->addFeature(0, -1, L"ºŸÀ¿¿◊¥Ô“˛ƒ‰", feat_toggle, "undeadOffradar");
-	g_iFeature[FEATURE_P_NORAGDOLL]			= g_pSettings->addFeature(0, -1, L"Œﬁ≤ºÕﬁÕﬁ", feat_toggle, "noRagdoll");
-	g_iFeature[FEATURE_P_WATER_PROOF]		= g_pSettings->addFeature(0, -1, L"ÀÆœ¬––◊ﬂ", feat_toggle, "waterProof");
-	g_iFeature[FEATURE_P_STAMINA]			= g_pSettings->addFeature(0, -1, L"ŒﬁœﬁƒÕ¡¶", feat_toggle, "infStam");
+	g_iFeature[FEATURE_P_TRUEGOD]			= g_pSettings->addFeature(0, -1, L"Êó†Êïå", feat_toggle, "trueGodMode");
+	g_iFeature[FEATURE_P_GOD]				= g_pSettings->addFeature(0, -1, L"ÂçäÊó†Êïå", feat_toggle, "godMode");
+	g_iFeature[FEATURE_P_HEAL]				= g_pSettings->addFeature(0, -1, L"Ê≤ªÁñó", feat_btn, &hack::healPlayer);
+	g_iFeature[FEATURE_P_SUICIDE]			= g_pSettings->addFeature(0, -1, L"Ëá™ÊùÄ", feat_btn, &hack::suicide);
+	g_iFeature[FEATURE_P_WANTED]			= g_pSettings->addFeature(0, -1, L"ÈÄöÁºâÁ≠âÁ∫ß", feat_slider, "wanted", 0.f, 5.f, .2f);
+	g_iFeature[FEATURE_P_NEVERWANTED]		= g_pSettings->addFeature(0, -1, L"Ê∞∏‰∏çÈÄöÁºâ", feat_toggle, "neverWanted");
+	int npc = g_pSettings->addFeature(0, -1, L"NPCÊéßÂà∂ >>", feat_parent);
+	g_pSettings->addFeature(-1, npc, L"ÊùÄÊ≠ªÊâÄÊúâNPC", feat_btn, &hack::killAllNpc);
+	g_pSettings->addFeature(-1, npc, L"ÊùÄÊ≠ªÊâÄÊúâÊïåÂØπNPC", feat_btn, &hack::killHostilityNpc);
+	g_pSettings->addFeature(-1, npc, L"ÊëßÊØÅÊâÄÊúâÊïåÂØπNPCÁöÑËΩΩÂÖ∑", feat_btn, &hack::killHostilityNpcVeh);
+	g_pSettings->addFeature(-1, npc, L"‰º†ÈÄÅÊâÄÊúâNPCÂà∞Êàë", feat_btn, &hack::tpAllNpc);
+	g_pSettings->addFeature(-1, npc, L"‰º†ÈÄÅÊâÄÊúâÊïåÂØπNPCÂà∞Êàë", feat_btn, &hack::tpHostilityNpc);
+	g_iFeature[FEATURE_P_ANTINPC]			= g_pSettings->addFeature(-1, npc, L"ÂèçNPC", feat_toggle, "antiNpc");
+	g_iFeature[FEATURE_P_NPC_IGNORE]		= g_pSettings->addFeature(-1, npc, L"NPCÊó†ËßÜÁé©ÂÆ∂", feat_toggle, "npcIgnore");
+	g_iFeature[FEATURE_P_RUNSPD]			= g_pSettings->addFeature(0, -1, L"Â•îË∑ëÈÄüÂ∫¶", feat_slider, "runSpd", 1.f, 5.f);
+	g_iFeature[FEATURE_P_SWIMSPD]			= g_pSettings->addFeature(0, -1, L"Ê∏∏Ê≥≥ÈÄüÂ∫¶", feat_slider, "swimSpd", 1.f, 5.f);
+	g_iFeature[FEATURE_P_SUPER_PUNCH]		= g_pSettings->addFeature(0, -1, L"ËøëÊàòÂáªÈÄÄÂÄçÊï∞", feat_slider, "superPunch", 0.f, 1000.f, (float)1.f / 10.f);
+	g_iFeature[FEATURE_P_SUPERJUMP]			= g_pSettings->addFeature(0, -1, L"Ë∂ÖÁ∫ßË∑≥Ë∑É", feat_toggle, "superJump");
+	g_iFeature[FEATURE_P_EXPLOSIVEMELEE]	= g_pSettings->addFeature(0, -1, L"ÁàÜÁÇ∏ËøëÊàò", feat_toggle, "explMelee");
+	g_iFeature[FEATURE_P_UNDEAD_OFFRADAR]	= g_pSettings->addFeature(0, -1, L"ÂÅáÊ≠ªÈõ∑ËææÈöêÂåø", feat_toggle, "undeadOffradar");
+	g_iFeature[FEATURE_P_NORAGDOLL]			= g_pSettings->addFeature(0, -1, L"Êó†Â∏ÉÂ®ÉÂ®É", feat_toggle, "noRagdoll");
+	g_iFeature[FEATURE_P_WATER_PROOF]		= g_pSettings->addFeature(0, -1, L"Ê∞¥‰∏ãË°åËµ∞", feat_toggle, "waterProof");
+	g_iFeature[FEATURE_P_STAMINA]			= g_pSettings->addFeature(0, -1, L"Êó†ÈôêËÄêÂäõ", feat_toggle, "infStam");
 
-	//g_iFeature[FEATURE_W_FILL_ALL_AMMO]		= addFeature(1, -1, "≤π¬˙À˘”–Œ‰∆˜µØ“©", feat_btn, &hack::fillAllAmmo, -1.f);
-	g_iFeature[FEATURE_W_FILL_AMMO]			= g_pSettings->addFeature(1, -1, L"≤π¬˙µ±«∞Œ‰∆˜µØ“©", feat_btn, &hack::fillAmmo);
-	g_iFeature[FEATURE_W_TRIGGER_BOT]		= g_pSettings->addFeature(1, -1, L"◊‘∂Ø…‰ª˜", feat_toggle, "triggerBot");
-	g_iFeature[FEATURE_W_AMMO]				= g_pSettings->addFeature(1, -1, L"ŒﬁœﬁµØ“©", feat_toggle, "infAmmo");
-	g_iFeature[FEATURE_W_SPREAD]			= g_pSettings->addFeature(1, -1, L"Œﬁ¿©…¢", feat_toggle, "noSpread");
-	g_iFeature[FEATURE_W_RECOIL]			= g_pSettings->addFeature(1, -1, L"Œﬁ∫Û◊˘", feat_toggle, "noRecoil");
-	g_iFeature[FEATURE_W_NORELOAD]			= g_pSettings->addFeature(1, -1, L"Œﬁ–ËªªµØ", feat_toggle, "noReload");
-	g_iFeature[FEATURE_W_RELOAD]			= g_pSettings->addFeature(1, -1, L"øÏÀŸªªµØ", feat_slider, "quickReload", 1.f, 10.f);
-	int bulletEdit = g_pSettings->addFeature(1, -1, L"◊”µØ±‡º≠ >>", feat_parent);
-	g_iFeature[FEATURE_W_BULLET_EDIT] = g_pSettings->addFeature(-1, bulletEdit, L"ø™/πÿ", feat_toggle, "bulletEdit");
-	g_pSettings->addFeature(-1, bulletEdit, L" ÷¡ÒµØ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::GrenadeExplosion);
-	g_pSettings->addFeature(-1, bulletEdit, L"’≥µØ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::StickyBombExplosion);
-	g_pSettings->addFeature(-1, bulletEdit, L"»º…’∆ø", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::MoltovCoctailExplosion);
-	g_pSettings->addFeature(-1, bulletEdit, L"“˛–Œ±¨’®", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::SuperLauncher);
-	g_pSettings->addFeature(-1, bulletEdit, L"…¡µÁ±¨’®", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::LightningExplosion);
-	g_pSettings->addFeature(-1, bulletEdit, L"¥Û±¨’®", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::BigExplosion);
-	g_pSettings->addFeature(-1, bulletEdit, L"¥Û±¨’®2", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::BigFireyExplosion);
-	g_pSettings->addFeature(-1, bulletEdit, L"÷–±¨’®", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::MediumExplosion);
-	g_pSettings->addFeature(-1, bulletEdit, L"–°±¨’®", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::TinyExplosion);
-	g_pSettings->addFeature(-1, bulletEdit, L"–°±¨’®2", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::TinyExplosions2);
-	g_pSettings->addFeature(-1, bulletEdit, L"–°ÀÆ÷˘", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::SmallWaterSpray);
-	g_pSettings->addFeature(-1, bulletEdit, L"–°ª÷˘", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::SmallFireSpray);
-	g_pSettings->addFeature(-1, bulletEdit, L"¥ÛÀÆ÷˘", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::BigWaterSpray);
-	g_pSettings->addFeature(-1, bulletEdit, L"¥Ûª÷˘", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::BigFireSpray);
-	g_pSettings->addFeature(-1, bulletEdit, L"MK2±¨’®◊”µØ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::MK2ExplosiveBullets);
-	g_pSettings->addFeature(-1, bulletEdit, L"—ÃŒÌµØ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::SmokeGrenade);
-	g_pSettings->addFeature(-1, bulletEdit, L"¥ﬂ¿·ÕﬂÀπ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::TearGas);
-	g_pSettings->addFeature(-1, bulletEdit, L"¥ﬂ¿·ÕﬂÀπ2", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::TearGas2);
-	g_pSettings->addFeature(-1, bulletEdit, L"–≈∫≈µØ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::RedFlareSmoke);
-	g_pSettings->addFeature(-1, bulletEdit, L"¥¯Ãÿ–ßµƒ±¨’®", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::CoolGroundExplosion);
-	g_pSettings->addFeature(-1, bulletEdit, L"¥Û≥Âª˜≤®±¨’®", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::CRAZYSHOCKWAVEEXPLOSION);
-	g_pSettings->addFeature(-1, bulletEdit, L"¥Ûª‘÷±¨’®", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::HUGEFireyExplosion);
-	g_pSettings->addFeature(-1, bulletEdit, L"≥¨¥Û–Õ∑…Õß±¨’®", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::MassiveBlimpExplosion);
-	g_pSettings->addFeature(-1, bulletEdit, L"≥¨¥Û–Õ∑…Õß±¨’®2", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::MassiveBlimpExplosion2);
-	g_pSettings->addFeature(-1, bulletEdit, L"¥Û±¨’®+◊π¬‰ÀÈ∆¨", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::LargeExplosionFallingDebris);
-	g_pSettings->addFeature(-1, bulletEdit, L"ª«Ú±¨’®", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::FireBallExplosion);
-	g_pSettings->addFeature(-1, bulletEdit, L"—Ãª®", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::FireworkExplosion);
-	g_pSettings->addFeature(-1, bulletEdit, L"—©«Ú", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::SnowballHit);
-	g_pSettings->addFeature(-1, bulletEdit, L"∆¡ƒª∂∂∂Ø±¨’®", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::JustScreenShake);
-	g_pSettings->addFeature(-1, bulletEdit, L"ºŸ±¨’®£®Œﬁ…À∫¶£©", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::SPOOFEXPLOSION);
-	g_iFeature[FEATURE_W_FORCE_ON_PED]		= g_pSettings->addFeature(1, -1, L"»À≥Âª˜¡¶", feat_slider, "forceOnPed", 1.f, 10000.f);
-	g_iFeature[FEATURE_W_FORCE_ON_VEHICLE]	= g_pSettings->addFeature(1, -1, L"≥µ¡æ≥Âª˜¡¶", feat_slider, "forceOnVeh", 1.f, 10000.f);
-	g_iFeature[FEATURE_W_FORCE_ON_HELI]		= g_pSettings->addFeature(1, -1, L"÷±…˝ª˙≥Âª˜¡¶", feat_slider, "forceOnHeli", 1.f, 10000.f);
-	g_iFeature[FEATURE_W_DAMAGE]			= g_pSettings->addFeature(1, -1, L"Œ‰∆˜…À∫¶±∂ ˝", feat_slider, "bulletDamage", 1.f, 10.f);
-	g_iFeature[FEATURE_W_RANGE]				= g_pSettings->addFeature(1, -1, L"…‰≥Ã", feat_slider, "weapRange", 1.f, 10.f);
-	g_iFeature[FEATURE_W_SPINUP]			= g_pSettings->addFeature(1, -1, L"º”Ãÿ¡÷Œﬁ–Ë‘§»»", feat_toggle, "weapSpin");
-	g_iFeature[FEATURE_W_EXPLOSIVEAMMO]		= g_pSettings->addFeature(1, -1, L"±¨’®◊”µØ", feat_toggle, "explAmmo");
-	g_iFeature[FEATURE_W_FIREAMMO]			= g_pSettings->addFeature(1, -1, L"»º…’◊”µØ", feat_toggle, "fireAmmo");
-	g_iFeature[FEATURE_W_BULLET_BATCH]		= g_pSettings->addFeature(1, -1, L"≈˙¡ø◊”µØ", feat_slider, "bulletBatch", 1.f, 10.f, (float) 1.f / 9.f);
-	g_iFeature[FEATURE_W_MUZZLE_VELOCITY]	= g_pSettings->addFeature(1, -1, L"≥ıÀŸ", feat_slider, "muzzleVelo", 1.f, 10.f);
+	g_iFeature[FEATURE_W_FILL_ALL_AMMO]		= g_pSettings->addFeature(1, -1, L"Ë°•Êª°ÊâÄÊúâÊ≠¶Âô®ÂºπËçØ", feat_btn, &hack::fillAllAmmo);
+	g_iFeature[FEATURE_W_FILL_AMMO]			= g_pSettings->addFeature(1, -1, L"Ë°•Êª°ÂΩìÂâçÊ≠¶Âô®ÂºπËçØ", feat_btn, &hack::fillAmmo);
+	g_iFeature[FEATURE_W_TRIGGER_BOT]		= g_pSettings->addFeature(1, -1, L"Ëá™Âä®Â∞ÑÂáª", feat_toggle, "triggerBot");
+	g_iFeature[FEATURE_W_AMMO]				= g_pSettings->addFeature(1, -1, L"Êó†ÈôêÂºπËçØ", feat_toggle, "infAmmo");
+	g_iFeature[FEATURE_W_SPREAD]			= g_pSettings->addFeature(1, -1, L"Êó†Êâ©Êï£", feat_toggle, "noSpread");
+	g_iFeature[FEATURE_W_RECOIL]			= g_pSettings->addFeature(1, -1, L"Êó†ÂêéÂ∫ß", feat_toggle, "noRecoil");
+	g_iFeature[FEATURE_W_NORELOAD]			= g_pSettings->addFeature(1, -1, L"Êó†ÈúÄÊç¢Âºπ", feat_toggle, "noReload");
+	g_iFeature[FEATURE_W_RELOAD]			= g_pSettings->addFeature(1, -1, L"Âø´ÈÄüÊç¢Âºπ", feat_slider, "quickReload", 1.f, 10.f);
+	int bulletEdit = g_pSettings->addFeature(1, -1, L"Â≠êÂºπÁºñËæë >>", feat_parent);
+	g_iFeature[FEATURE_W_BULLET_EDIT] = g_pSettings->addFeature(-1, bulletEdit, L"ÂºÄ/ÂÖ≥", feat_toggle, "bulletEdit");
+	g_pSettings->addFeature(-1, bulletEdit, L"ÊâãÊ¶¥Âºπ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::GrenadeExplosion);
+	g_pSettings->addFeature(-1, bulletEdit, L"Á≤òÂºπ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::StickyBombExplosion);
+	g_pSettings->addFeature(-1, bulletEdit, L"ÁáÉÁÉßÁì∂", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::MoltovCoctailExplosion);
+	g_pSettings->addFeature(-1, bulletEdit, L"ÈöêÂΩ¢ÁàÜÁÇ∏", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::SuperLauncher);
+	g_pSettings->addFeature(-1, bulletEdit, L"Èó™ÁîµÁàÜÁÇ∏", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::LightningExplosion);
+	g_pSettings->addFeature(-1, bulletEdit, L"Â§ßÁàÜÁÇ∏", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::BigExplosion);
+	g_pSettings->addFeature(-1, bulletEdit, L"Â§ßÁàÜÁÇ∏2", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::BigFireyExplosion);
+	g_pSettings->addFeature(-1, bulletEdit, L"‰∏≠ÁàÜÁÇ∏", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::MediumExplosion);
+	g_pSettings->addFeature(-1, bulletEdit, L"Â∞èÁàÜÁÇ∏", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::TinyExplosion);
+	g_pSettings->addFeature(-1, bulletEdit, L"Â∞èÁàÜÁÇ∏2", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::TinyExplosions2);
+	g_pSettings->addFeature(-1, bulletEdit, L"Â∞èÊ∞¥Êü±", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::SmallWaterSpray);
+	g_pSettings->addFeature(-1, bulletEdit, L"Â∞èÁÅ´Êü±", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::SmallFireSpray);
+	g_pSettings->addFeature(-1, bulletEdit, L"Â§ßÊ∞¥Êü±", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::BigWaterSpray);
+	g_pSettings->addFeature(-1, bulletEdit, L"Â§ßÁÅ´Êü±", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::BigFireSpray);
+	g_pSettings->addFeature(-1, bulletEdit, L"MK2ÁàÜÁÇ∏Â≠êÂºπ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::MK2ExplosiveBullets);
+	g_pSettings->addFeature(-1, bulletEdit, L"ÁÉüÈõæÂºπ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::SmokeGrenade);
+	g_pSettings->addFeature(-1, bulletEdit, L"ÂÇ¨Ê≥™Áì¶ÊñØ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::TearGas);
+	g_pSettings->addFeature(-1, bulletEdit, L"ÂÇ¨Ê≥™Áì¶ÊñØ2", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::TearGas2);
+	g_pSettings->addFeature(-1, bulletEdit, L"‰ø°Âè∑Âºπ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::RedFlareSmoke);
+	g_pSettings->addFeature(-1, bulletEdit, L"Â∏¶ÁâπÊïàÁöÑÁàÜÁÇ∏", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::CoolGroundExplosion);
+	g_pSettings->addFeature(-1, bulletEdit, L"Â§ßÂÜ≤ÂáªÊ≥¢ÁàÜÁÇ∏", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::CRAZYSHOCKWAVEEXPLOSION);
+	g_pSettings->addFeature(-1, bulletEdit, L"Â§ßÁÅ´ÁÅæÁàÜÁÇ∏", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::HUGEFireyExplosion);
+	g_pSettings->addFeature(-1, bulletEdit, L"Ë∂ÖÂ§ßÂûãÈ£ûËâáÁàÜÁÇ∏", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::MassiveBlimpExplosion);
+	g_pSettings->addFeature(-1, bulletEdit, L"Ë∂ÖÂ§ßÂûãÈ£ûËâáÁàÜÁÇ∏2", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::MassiveBlimpExplosion2);
+	g_pSettings->addFeature(-1, bulletEdit, L"Â§ßÁàÜÁÇ∏+Âù†ËêΩÁ¢éÁâá", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::LargeExplosionFallingDebris);
+	g_pSettings->addFeature(-1, bulletEdit, L"ÁÅ´ÁêÉÁàÜÁÇ∏", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::FireBallExplosion);
+	g_pSettings->addFeature(-1, bulletEdit, L"ÁÉüËä±", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::FireworkExplosion);
+	g_pSettings->addFeature(-1, bulletEdit, L"Èõ™ÁêÉ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::SnowballHit);
+	g_pSettings->addFeature(-1, bulletEdit, L"Â±èÂπïÊäñÂä®ÁàÜÁÇ∏", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::JustScreenShake);
+	g_pSettings->addFeature(-1, bulletEdit, L"ÂÅáÁàÜÁÇ∏ÔºàÊó†‰º§ÂÆ≥Ôºâ", feat_btn, &hack::setImpactExplosion, ImpactExplosionEnum::SPOOFEXPLOSION);
+	g_iFeature[FEATURE_W_FORCE_ON_PED]		= g_pSettings->addFeature(1, -1, L"‰∫∫ÂÜ≤ÂáªÂäõ", feat_slider, "forceOnPed", 1.f, 10000.f);
+	g_iFeature[FEATURE_W_FORCE_ON_VEHICLE]	= g_pSettings->addFeature(1, -1, L"ËΩ¶ËæÜÂÜ≤ÂáªÂäõ", feat_slider, "forceOnVeh", 1.f, 10000.f);
+	g_iFeature[FEATURE_W_FORCE_ON_HELI]		= g_pSettings->addFeature(1, -1, L"Áõ¥ÂçáÊú∫ÂÜ≤ÂáªÂäõ", feat_slider, "forceOnHeli", 1.f, 10000.f);
+	g_iFeature[FEATURE_W_DAMAGE]			= g_pSettings->addFeature(1, -1, L"Ê≠¶Âô®‰º§ÂÆ≥ÂÄçÊï∞", feat_slider, "bulletDamage", 1.f, 10.f);
+	g_iFeature[FEATURE_W_RANGE]				= g_pSettings->addFeature(1, -1, L"Â∞ÑÁ®ã", feat_slider, "weapRange", 1.f, 10.f);
+	g_iFeature[FEATURE_W_SPINUP]			= g_pSettings->addFeature(1, -1, L"Âä†ÁâπÊûóÊó†ÈúÄÈ¢ÑÁÉ≠", feat_toggle, "weapSpin");
+	g_iFeature[FEATURE_W_EXPLOSIVEAMMO]		= g_pSettings->addFeature(1, -1, L"ÁàÜÁÇ∏Â≠êÂºπ", feat_toggle, "explAmmo");
+	g_iFeature[FEATURE_W_FIREAMMO]			= g_pSettings->addFeature(1, -1, L"ÁáÉÁÉßÂ≠êÂºπ", feat_toggle, "fireAmmo");
+	g_iFeature[FEATURE_W_BULLET_BATCH]		= g_pSettings->addFeature(1, -1, L"ÊâπÈáèÂ≠êÂºπ", feat_slider, "bulletBatch", 1.f, 10.f, (float) 1.f / 9.f);
+	g_iFeature[FEATURE_W_MUZZLE_VELOCITY]	= g_pSettings->addFeature(1, -1, L"ÂàùÈÄü", feat_slider, "muzzleVelo", 1.f, 10.f);
 
-	g_iFeature[FEATURE_V_TRUEGOD]			= g_pSettings->addFeature(2, -1, L"Œﬁµ–", feat_toggle, "vehTrueGodMode");
-	g_iFeature[FEATURE_V_GOD]				= g_pSettings->addFeature(2, -1, L"∞ÎŒﬁµ–", feat_toggle, "vehGodMode");
-	g_iFeature[FEATURE_V_HEAL]				= g_pSettings->addFeature(2, -1, L"–ﬁ∏¥", feat_btn, &hack::healVehicle);
-	g_iFeature[FEATURE_V_BULLETPROOFTIRES]	= g_pSettings->addFeature(2, -1, L"∑¿±¨¬÷Ã•", feat_toggle, "vehBulletproofTires");
-	g_iFeature[FEATURE_V_SEATBELT]			= g_pSettings->addFeature(2, -1, L"∞≤»´¥¯", feat_toggle, "seatbelt");
-	g_iFeature[FEATURE_V_GRAVITY]			= g_pSettings->addFeature(2, -1, L"÷ÿ¡¶", feat_slider, "vehGravity", 0.f, 25.f);
-	g_iFeature[FEATURE_V_BOOST]				= g_pSettings->addFeature(2, -1, L"Œﬁœﬁ≈Á…‰", feat_toggle, "vehBoost");
-	g_iFeature[FEATURE_V_RECHARGE_SPEED]	= g_pSettings->addFeature(2, -1, L"≈Á…‰ª÷∏¥ÀŸ∂»", feat_slider, "vehRrchargeSpeed", .5f, 5.f);
-	int handing = g_pSettings->addFeature(2, -1, L" Ù–‘ >>", feat_parent);
-	g_iFeature[FEATURE_V_MASS]				= g_pSettings->addFeature(-1, handing, L"÷ ¡ø", feat_slider, "vehMass", 0.f, 1000000.f);
-	g_iFeature[FEATURE_V_BUOYANCY]			= g_pSettings->addFeature(-1, handing, L"∏°¡¶", feat_slider, "vehBuoyancy", 0.f, 1000.f);
-	g_iFeature[FEATURE_V_ACCELERATION]		= g_pSettings->addFeature(-1, handing, L"º”ÀŸ∂»", feat_slider, "vehAccel", 1.f, 1000.f);
-	g_iFeature[FEATURE_V_UPSHIFT]			= g_pSettings->addFeature(-1, handing, L"º”µ≤ÀŸ∂»", feat_slider, "vehUpShift", 1.f, 25.f);
-	g_iFeature[FEATURE_V_DOWNSHIFT]			= g_pSettings->addFeature(-1, handing, L"ºıµµÀŸ∂»", feat_slider, "vehDownShift", 1.f, 25.f);
-	g_iFeature[FEATURE_V_BRAKEFORCE]		= g_pSettings->addFeature(-1, handing, L"…≤≥µ÷∆∂Ø¡¶", feat_slider, "vehBrakeForce", 1.f, 25.f);
-	g_iFeature[FEATURE_V_HANDBRAKEFORCE]	= g_pSettings->addFeature(-1, handing, L" ÷…≤÷∆∂Ø¡¶", feat_slider, "vehBuoyancy", 1.f, 25.f);
-	g_iFeature[FEATURE_V_TRACTION]			= g_pSettings->addFeature(-1, handing, L"«£“˝¡¶", feat_slider, "vehTraction", 1.f, 25.f);
-	g_iFeature[FEATURE_V_SUSPENSION_FORCE]	= g_pSettings->addFeature(-1, handing, L"–¸π“÷ß≥≈¡¶", feat_slider, "vehSuspensionForce", 0.f, 25.f);
-	g_iFeature[FEATURE_V_SUSPENSION_HEIGH]	= g_pSettings->addFeature(-1, handing, L"–¸π“∏ﬂ∂»", feat_slider, "vehSuspensionHeigh", 0.f, 1.f);
-	g_iFeature[FEATURE_V_COLISION_DAMAGE_MP]= g_pSettings->addFeature(-1, handing, L"◊≤ª˜…À∫¶±∂ ˝", feat_slider, "vehColisionDamage", 0.f, 25.f);
-	g_iFeature[FEATURE_V_WEAPON_DAMAGE_MP]	= g_pSettings->addFeature(-1, handing, L"Œ‰∆˜…À∫¶±∂ ˝", feat_slider, "vehWeaponDamage", 0.f, 25.f);
-	g_iFeature[FEATURE_V_DEFORMATION]		= g_pSettings->addFeature(-1, handing, L"±‰–Œ±∂ ˝", feat_slider, "vehDeform", 0.f, 25.f);
-	g_iFeature[FEATURE_V_ENGINE_DAMAGE_MP]	= g_pSettings->addFeature(-1, handing, L"“˝«Ê…À∫¶±∂ ˝", feat_slider, "vehEngineDamage", 0.f, 25.f);
+	g_iFeature[FEATURE_V_TRUEGOD]			= g_pSettings->addFeature(2, -1, L"Êó†Êïå", feat_toggle, "vehTrueGodMode");
+	g_iFeature[FEATURE_V_GOD]				= g_pSettings->addFeature(2, -1, L"ÂçäÊó†Êïå", feat_toggle, "vehGodMode");
+	g_iFeature[FEATURE_V_HEAL]				= g_pSettings->addFeature(2, -1, L"‰øÆÂ§ç", feat_btn, &hack::healVehicle);
+	g_iFeature[FEATURE_V_BULLETPROOFTIRES]	= g_pSettings->addFeature(2, -1, L"Èò≤ÁàÜËΩÆËÉé", feat_toggle, "vehBulletproofTires");
+	g_iFeature[FEATURE_V_SEATBELT]			= g_pSettings->addFeature(2, -1, L"ÂÆâÂÖ®Â∏¶", feat_toggle, "seatbelt");
+	g_iFeature[FEATURE_V_GRAVITY]			= g_pSettings->addFeature(2, -1, L"ÈáçÂäõ", feat_slider, "vehGravity", 0.f, 25.f);
+	g_iFeature[FEATURE_V_BOOST]				= g_pSettings->addFeature(2, -1, L"Êó†ÈôêÂñ∑Â∞Ñ", feat_toggle, "vehBoost");
+	g_iFeature[FEATURE_V_RECHARGE_SPEED]	= g_pSettings->addFeature(2, -1, L"Âñ∑Â∞ÑÊÅ¢Â§çÈÄüÂ∫¶", feat_slider, "vehRrchargeSpeed", .5f, 5.f);
+	int handing = g_pSettings->addFeature(2, -1, L"Â±ûÊÄß >>", feat_parent);
+	g_iFeature[FEATURE_V_MASS]				= g_pSettings->addFeature(-1, handing, L"Ë¥®Èáè", feat_slider, "vehMass", 0.f, 1000000.f);
+	g_iFeature[FEATURE_V_BUOYANCY]			= g_pSettings->addFeature(-1, handing, L"ÊµÆÂäõ", feat_slider, "vehBuoyancy", 0.f, 1000.f);
+	g_iFeature[FEATURE_V_ACCELERATION]		= g_pSettings->addFeature(-1, handing, L"Âä†ÈÄüÂ∫¶", feat_slider, "vehAccel", 1.f, 1000.f);
+	g_iFeature[FEATURE_V_UPSHIFT]			= g_pSettings->addFeature(-1, handing, L"Âä†Êå°ÈÄüÂ∫¶", feat_slider, "vehUpShift", 1.f, 25.f);
+	g_iFeature[FEATURE_V_DOWNSHIFT]			= g_pSettings->addFeature(-1, handing, L"ÂáèÊ°£ÈÄüÂ∫¶", feat_slider, "vehDownShift", 1.f, 25.f);
+	g_iFeature[FEATURE_V_BRAKEFORCE]		= g_pSettings->addFeature(-1, handing, L"ÂàπËΩ¶Âà∂Âä®Âäõ", feat_slider, "vehBrakeForce", 1.f, 25.f);
+	g_iFeature[FEATURE_V_HANDBRAKEFORCE]	= g_pSettings->addFeature(-1, handing, L"ÊâãÂàπÂà∂Âä®Âäõ", feat_slider, "vehBuoyancy", 1.f, 25.f);
+	g_iFeature[FEATURE_V_TRACTION]			= g_pSettings->addFeature(-1, handing, L"ÁâµÂºïÂäõ", feat_slider, "vehTraction", 1.f, 25.f);
+	g_iFeature[FEATURE_V_SUSPENSION_FORCE]	= g_pSettings->addFeature(-1, handing, L"ÊÇ¨ÊåÇÊîØÊíëÂäõ", feat_slider, "vehSuspensionForce", 0.f, 25.f);
+	g_iFeature[FEATURE_V_SUSPENSION_HEIGH]	= g_pSettings->addFeature(-1, handing, L"ÊÇ¨ÊåÇÈ´òÂ∫¶", feat_slider, "vehSuspensionHeigh", 0.f, 1.f);
+	g_iFeature[FEATURE_V_COLISION_DAMAGE_MP]= g_pSettings->addFeature(-1, handing, L"ÊíûÂáª‰º§ÂÆ≥ÂÄçÊï∞", feat_slider, "vehColisionDamage", 0.f, 25.f);
+	g_iFeature[FEATURE_V_WEAPON_DAMAGE_MP]	= g_pSettings->addFeature(-1, handing, L"Ê≠¶Âô®‰º§ÂÆ≥ÂÄçÊï∞", feat_slider, "vehWeaponDamage", 0.f, 25.f);
+	g_iFeature[FEATURE_V_DEFORMATION]		= g_pSettings->addFeature(-1, handing, L"ÂèòÂΩ¢ÂÄçÊï∞", feat_slider, "vehDeform", 0.f, 25.f);
+	g_iFeature[FEATURE_V_ENGINE_DAMAGE_MP]	= g_pSettings->addFeature(-1, handing, L"ÂºïÊìé‰º§ÂÆ≥ÂÄçÊï∞", feat_slider, "vehEngineDamage", 0.f, 25.f);
 
-	g_pSettings->addFeature(3, -1, L"µº∫Ωµ„", feat_teleport, tp_waypoint);
-	g_pSettings->addFeature(3, -1, L"ƒø±Íµ„", feat_teleport, tp_objective);
-	g_pSettings->addFeature(3, -1, L"œÚ«∞", feat_btn, &hack::forwardTeleport, 5.f);
+	g_pSettings->addFeature(3, -1, L"ÂØºËà™ÁÇπ", feat_teleport, tp_waypoint);
+	g_pSettings->addFeature(3, -1, L"ÁõÆÊ†áÁÇπ", feat_teleport, tp_objective);
+	g_pSettings->addFeature(3, -1, L"ÂêëÂâç", feat_btn, &hack::forwardTeleport, 5.f);
 
-	int interior = g_pSettings->addFeature(3, -1, L" “ƒ⁄ >>", feat_parent);
-	g_pSettings->addFeature(-1, interior, L"FIB¥Û¬•¬•∂•", feat_teleport, tp_static, 136.0f, -750.f, 262.f);
-	g_pSettings->addFeature(-1, interior, L"∑˛◊∞≥ß", feat_teleport, tp_static, 712.716f, -962.906f, 30.6f);
-	g_pSettings->addFeature(-1, interior, L"∏ª¿ºøÀ¡÷º“", feat_teleport, tp_static, 7.119f, 536.615f, 176.2f);
-	g_pSettings->addFeature(-1, interior, L"¬ÛøÀº“", feat_teleport, tp_static, -813.603f, 179.474f, 72.5f);
-	g_pSettings->addFeature(-1, interior, L"¥ﬁ∑º“", feat_teleport, tp_static, 1972.610f, 3817.040f, 33.65f);
-	g_pSettings->addFeature(-1, interior, L"µ§ƒ·Àπ∞¢“Ãº“", feat_teleport, tp_static, -14.380f, -1438.510f, 31.3f);
-	g_pSettings->addFeature(-1, interior, L"∏•¬Â“¡µ¬º“", feat_teleport, tp_static, -1151.770f, -1518.138f, 10.85f);
-	g_pSettings->addFeature(-1, interior, L"¿≥ÀπÃÿº“", feat_teleport, tp_static, 1273.898f, -1719.304f, 54.8f);
-	g_pSettings->addFeature(-1, interior, L"Õ—“¬ŒËæ„¿÷≤ø", feat_teleport, tp_static, 97.271f, -1290.994f, 29.45f);
-	g_pSettings->addFeature(-1, interior, L"“¯––Ωø‚£®Ã´∆Ω—Û±Í◊º£©", feat_teleport, tp_static, 255.85f, 217.f, 101.9f);
-	g_pSettings->addFeature(-1, interior, L"œ≤æÁæ„¿÷≤ø", feat_teleport, tp_static, 378.100f, -999.964f, -98.6f);
-	g_pSettings->addFeature(-1, interior, L"»Àµ¿ µ—È “", feat_teleport, tp_static, 3614.394f, 3744.803f, 28.9f);
-	g_pSettings->addFeature(-1, interior, L"»Àµ¿ µ—È “µÿµ¿", feat_teleport, tp_static, 3525.201f, 3709.625f, 21.2f);
-	g_pSettings->addFeature(-1, interior, L"IAA∞Ïπ´ “", feat_teleport, tp_static, 113.568f, -619.001f, 206.25f);
-	g_pSettings->addFeature(-1, interior, L"–Ã—∂ “", feat_teleport, tp_static, 142.746f, -2201.189f, 4.9f);
-	g_pSettings->addFeature(-1, interior, L"æ¸ ¬ª˘µÿ∏ﬂÀ˛", feat_teleport, tp_static, -2358.132f, 3249.754f, 101.65f);
-	g_pSettings->addFeature(-1, interior, L"øÛæÆ", feat_teleport, tp_static, -595.342f, 2086.008f, 131.6f);
-	int saved = g_pSettings->addFeature(3, -1, L"◊‘∂®“Â±£¥Êµ„ >>", feat_parent);
-	g_pSettings->addFeature(-1, saved, L"±£¥Êµ„1", feat_teleport, "pos0", tp_saved);
-	g_pSettings->addFeature(-1, saved, L"±£¥Êµ„2", feat_teleport, "pos1", tp_saved);
-	g_pSettings->addFeature(-1, saved, L"±£¥Êµ„3", feat_teleport, "pos2", tp_saved);
-	g_pSettings->addFeature(-1, saved, L"±£¥Êµ„4", feat_teleport, "pos3", tp_saved);
-	g_pSettings->addFeature(-1, saved, L"±£¥Êµ„5", feat_teleport, "pos4", tp_saved);
-	g_pSettings->addFeature(-1, saved, L"±£¥Êµ„6", feat_teleport, "pos5", tp_saved);
-	g_pSettings->addFeature(3, -1, L"¬Â •∂º∏ƒ≥µÕı", feat_teleport, tp_static, -365.425f, -131.809f, -225.f);//38.9f);
-	g_pSettings->addFeature(3, -1, L"LSª˙≥°", feat_teleport, tp_static, -1336.f, -3044.f, -225.f);//14.15f);
-	g_pSettings->addFeature(3, -1, L"…£µœ∫£∞∂ª˙≥°", feat_teleport, tp_static, 1747.f, 3273.f, -225.f);//41.35f);
-	g_pSettings->addFeature(3, -1, L"«ßƒÍ…Ω", feat_teleport, tp_static, 489.979f, 5587.527f, 794.3f);
+	int interior = g_pSettings->addFeature(3, -1, L"ÂÆ§ÂÜÖ >>", feat_parent);
+	g_pSettings->addFeature(-1, interior, L"FIBÂ§ßÊ•ºÊ•ºÈ°∂", feat_teleport, tp_static, 136.0f, -750.f, 262.f);
+	g_pSettings->addFeature(-1, interior, L"ÊúçË£ÖÂéÇ", feat_teleport, tp_static, 712.716f, -962.906f, 30.6f);
+	g_pSettings->addFeature(-1, interior, L"ÂØåÂÖ∞ÂÖãÊûóÂÆ∂", feat_teleport, tp_static, 7.119f, 536.615f, 176.2f);
+	g_pSettings->addFeature(-1, interior, L"È∫¶ÂÖãÂÆ∂", feat_teleport, tp_static, -813.603f, 179.474f, 72.5f);
+	g_pSettings->addFeature(-1, interior, L"Â¥î‰ΩõÂÆ∂", feat_teleport, tp_static, 1972.610f, 3817.040f, 33.65f);
+	g_pSettings->addFeature(-1, interior, L"‰∏πÂ∞ºÊñØÈòøÂß®ÂÆ∂", feat_teleport, tp_static, -14.380f, -1438.510f, 31.3f);
+	g_pSettings->addFeature(-1, interior, L"ÂºóÊ¥õ‰ºäÂæ∑ÂÆ∂", feat_teleport, tp_static, -1151.770f, -1518.138f, 10.85f);
+	g_pSettings->addFeature(-1, interior, L"Ëé±ÊñØÁâπÂÆ∂", feat_teleport, tp_static, 1273.898f, -1719.304f, 54.8f);
+	g_pSettings->addFeature(-1, interior, L"ËÑ±Ë°£Ëàû‰ø±‰πêÈÉ®", feat_teleport, tp_static, 97.271f, -1290.994f, 29.45f);
+	g_pSettings->addFeature(-1, interior, L"Èì∂Ë°åÈáëÂ∫ìÔºàÂ§™Âπ≥Ê¥ãÊ†áÂáÜÔºâ", feat_teleport, tp_static, 255.85f, 217.f, 101.9f);
+	g_pSettings->addFeature(-1, interior, L"ÂñúÂâß‰ø±‰πêÈÉ®", feat_teleport, tp_static, 378.100f, -999.964f, -98.6f);
+	g_pSettings->addFeature(-1, interior, L"‰∫∫ÈÅìÂÆûÈ™åÂÆ§", feat_teleport, tp_static, 3614.394f, 3744.803f, 28.9f);
+	g_pSettings->addFeature(-1, interior, L"‰∫∫ÈÅìÂÆûÈ™åÂÆ§Âú∞ÈÅì", feat_teleport, tp_static, 3525.201f, 3709.625f, 21.2f);
+	g_pSettings->addFeature(-1, interior, L"IAAÂäûÂÖ¨ÂÆ§", feat_teleport, tp_static, 113.568f, -619.001f, 206.25f);
+	g_pSettings->addFeature(-1, interior, L"ÂàëËÆØÂÆ§", feat_teleport, tp_static, 142.746f, -2201.189f, 4.9f);
+	g_pSettings->addFeature(-1, interior, L"ÂÜõ‰∫ãÂü∫Âú∞È´òÂ°î", feat_teleport, tp_static, -2358.132f, 3249.754f, 101.65f);
+	g_pSettings->addFeature(-1, interior, L"Áüø‰∫ï", feat_teleport, tp_static, -595.342f, 2086.008f, 131.6f);
+	int saved = g_pSettings->addFeature(3, -1, L"Ëá™ÂÆö‰πâ‰øùÂ≠òÁÇπ >>", feat_parent);
+	g_pSettings->addFeature(-1, saved, L"‰øùÂ≠òÁÇπ1", feat_teleport, "pos0", tp_saved);
+	g_pSettings->addFeature(-1, saved, L"‰øùÂ≠òÁÇπ2", feat_teleport, "pos1", tp_saved);
+	g_pSettings->addFeature(-1, saved, L"‰øùÂ≠òÁÇπ3", feat_teleport, "pos2", tp_saved);
+	g_pSettings->addFeature(-1, saved, L"‰øùÂ≠òÁÇπ4", feat_teleport, "pos3", tp_saved);
+	g_pSettings->addFeature(-1, saved, L"‰øùÂ≠òÁÇπ5", feat_teleport, "pos4", tp_saved);
+	g_pSettings->addFeature(-1, saved, L"‰øùÂ≠òÁÇπ6", feat_teleport, "pos5", tp_saved);
+	g_pSettings->addFeature(3, -1, L"Ê¥õÂú£ÈÉΩÊîπËΩ¶Áéã", feat_teleport, tp_static, -365.425f, -131.809f, -225.f);//38.9f);
+	g_pSettings->addFeature(3, -1, L"LSÊú∫Âú∫", feat_teleport, tp_static, -1336.f, -3044.f, -225.f);//14.15f);
+	g_pSettings->addFeature(3, -1, L"Ê°ëËø™Êµ∑Â≤∏Êú∫Âú∫", feat_teleport, tp_static, 1747.f, 3273.f, -225.f);//41.35f);
+	g_pSettings->addFeature(3, -1, L"ÂçÉÂπ¥Â±±", feat_teleport, tp_static, 489.979f, 5587.527f, 794.3f);
 
-	int session = g_pSettings->addFeature(4, -1, L"’Ωæ÷ >>", feat_parent);
+	int session = g_pSettings->addFeature(4, -1, L"ÊàòÂ±Ä >>", feat_parent);
 	for (int i = 0; i < sizeof(tbl_SessionMItems)/sizeof(tbl_SessionMItems[0]); i++)
 		g_pSettings->addFeature(-1, session, tbl_SessionMItems[i].second, feat_btn, &hack::loadSession, tbl_SessionMItems[i].first);
-	int olService = g_pSettings->addFeature(4, -1, L"œﬂ…œ >>", feat_parent);
-	g_pSettings->addFeature(-1, olService, L"◊¯Ω¯∏ˆ»À‘ÿæﬂ", feat_btn, &hack::intoPV);
-	g_iFeature[FEATURE_P_MONERY_DROP] = g_pSettings->addFeature(-1, olService, L"«Æ¥¸À¢«Æ£®10K£©", feat_toggle, "moneyDrop");
-	//g_iFeature[FEATURE_P_PLAYER_LIST] = g_pSettings->addFeature(3, -1, L"ÕÊº“¡–±Ì >>", feat_parent);
+	int olService = g_pSettings->addFeature(4, -1, L"Á∫ø‰∏ä >>", feat_parent);
+	g_pSettings->addFeature(-1, olService, L"ÂùêËøõ‰∏™‰∫∫ËΩΩÂÖ∑", feat_btn, &hack::intoPV);
+	g_iFeature[FEATURE_P_MONERY_DROP] = g_pSettings->addFeature(-1, olService, L"Èí±Ë¢ãÂà∑Èí±Ôºà10KÔºâ", feat_toggle, "moneyDrop");
+	//g_iFeature[FEATURE_P_PLAYER_LIST] = g_pSettings->addFeature(3, -1, L"Áé©ÂÆ∂ÂàóË°® >>", feat_parent);
 	//for (size_t i = 0; i < sizeof(g_iFeaturePlayerList)/sizeof(g_iFeaturePlayerList[0]); i++)
-	//	g_iFeaturePlayerList[i] = g_pSettings->addFeature(-1, g_iFeature[FEATURE_P_PLAYER_LIST], L"œﬂ…œ >>", feat_parent);
+	//	g_iFeaturePlayerList[i] = g_pSettings->addFeature(-1, g_iFeature[FEATURE_P_PLAYER_LIST], L"Á∫ø‰∏ä >>", feat_parent);
 
-	int vehSpawn = g_pSettings->addFeature(-1, olService, L"À¢≥ˆ‘ÿæﬂ >>", feat_parent);
+	int vehSpawn = g_pSettings->addFeature(-1, olService, L"Âà∑Âá∫ËΩΩÂÖ∑ >>", feat_parent);
 	for (int i = 0; i < vehiclePreview.size(); i++)
 	{
 		int temp = g_pSettings->addFeature(-1, vehSpawn, vehiclePreview[i].first, feat_parent);
@@ -240,136 +240,136 @@ int __stdcall WinMain(	HINSTANCE	hInstance,
 			g_pSettings->addFeature(-1, temp, vehiclePreview[i].second[j].VName, feat_btn, &hack::spawnVehicle, i, j);
 	}
 
-	int tunable = g_pSettings->addFeature(-1, olService, L"ø…µ˜≤Œ ˝ >>", feat_parent);
-	g_iFeature[FEATURE_G_ANTI_IDLE_KICK] = g_pSettings->addFeature(-1, tunable, L"AFK∑¥π“ª˙Ãﬂ≥ˆ", feat_toggle, "AntiIdleKick");
-	g_iFeature[FEATURE_G_ORBITAL_CANNON] = g_pSettings->addFeature(-1, tunable, L"ÃÏª˘≈⁄Œﬁ¿‰»¥", feat_toggle, "OrbitalCannon");
-	g_iFeature[FEATURE_T_SUICIDE_CD] = g_pSettings->addFeature(-1, tunable, L"◊‘…±Œﬁ¿‰»¥", feat_toggle, "SuicideCD");
-	g_iFeature[FEATURE_G_RP_MP]			   = g_pSettings->addFeature(-1, tunable, L"RP±∂ ˝", feat_slider,"RP", 1.f, 1000.f , (float)1.f / 9.f);
-	g_iFeature[FEATURE_G_MISSION_PAYOUT]   = g_pSettings->addFeature(-1, tunable, L"◊Ó–°»ŒŒÒΩ∂Ó", feat_slider, "MinMissionPayout", 0.f, 100000.f);
-	int recovery = g_pSettings->addFeature(-1, olService, L"Ω‚À¯&ª÷∏¥ >>", feat_parent);
-	g_iFeature[FEATURE_R_MP_INDEX] = g_pSettings->addFeature(-1, recovery, L"«–ªªΩ«…´ [µ±«∞£∫1]", feat_toggle, "mpIndex");
-	int rank = g_pSettings->addFeature(-1, recovery, L"–ﬁ∏ƒµ»º∂(«–ªª’Ωæ÷∫Û…˙–ß) >>", feat_parent);
+	int tunable = g_pSettings->addFeature(-1, olService, L"ÂèØË∞ÉÂèÇÊï∞ >>", feat_parent);
+	g_iFeature[FEATURE_G_ANTI_IDLE_KICK] = g_pSettings->addFeature(-1, tunable, L"AFKÂèçÊåÇÊú∫Ë∏¢Âá∫", feat_toggle, "AntiIdleKick");
+	g_iFeature[FEATURE_G_ORBITAL_CANNON] = g_pSettings->addFeature(-1, tunable, L"Â§©Âü∫ÁÇÆÊó†ÂÜ∑Âç¥", feat_toggle, "OrbitalCannon");
+	g_iFeature[FEATURE_T_SUICIDE_CD] = g_pSettings->addFeature(-1, tunable, L"Ëá™ÊùÄÊó†ÂÜ∑Âç¥", feat_toggle, "SuicideCD");
+	g_iFeature[FEATURE_G_RP_MP]			   = g_pSettings->addFeature(-1, tunable, L"RPÂÄçÊï∞", feat_slider,"RP", 1.f, 1000.f , (float)1.f / 9.f);
+	g_iFeature[FEATURE_G_MISSION_PAYOUT]   = g_pSettings->addFeature(-1, tunable, L"ÊúÄÂ∞è‰ªªÂä°ÈáëÈ¢ù", feat_slider, "MinMissionPayout", 0.f, 100000.f);
+	int recovery = g_pSettings->addFeature(-1, olService, L"Ëß£ÈîÅ&ÊÅ¢Â§ç >>", feat_parent);
+	g_iFeature[FEATURE_R_MP_INDEX] = g_pSettings->addFeature(-1, recovery, L"ÂàáÊç¢ËßíËâ≤ [ÂΩìÂâçÔºö1]", feat_toggle, "mpIndex");
+	int rank = g_pSettings->addFeature(-1, recovery, L"‰øÆÊîπÁ≠âÁ∫ß(ÂàáÊç¢ÊàòÂ±ÄÂêéÁîüÊïà) >>", feat_parent);
 
 	constexpr int rank_list[] = { 1,20,30,50,100,120,200,520,666,888,6666,8000 };
 	for (int i = 0; i < sizeof(rank_list)/ sizeof(*rank_list); i++)
 	{
 		g_pSettings->addFeature(-1, rank, std::to_wstring(rank_list[i]), feat_btn, &hack::setRank, rank_list[i]);
 	}
-	g_pSettings->addFeature(-1, recovery, L"Ω«…´ Ù–‘»´¬˙", feat_btn, &hack::fillSkillLevels);
-	g_pSettings->addFeature(-1, recovery, L"≤π¬˙¡„ ≥°¢∑¿µØ“¬", feat_btn, &hack::fillAllSnacks);
-	int casino = g_pSettings->addFeature(-1, recovery, L"∂ƒ≥°∫¿ΩŸ >>", feat_parent);
-	g_pSettings->addFeature(-1, casino, L"«Â≥˝¿‰»¥ ±º‰", feat_btn, &hack::casinoStat);
-	int bitSet1 = g_pSettings->addFeature(-1, casino, L"µ⁄“ªøÈº∆ªÆ∞Â >>", feat_parent);
-	g_pSettings->addFeature(-1, bitSet1, L"Ω‚À¯À˘”–ÃΩ≤Èµ„", feat_btn, &hack::casinoStatBitSet1, 7);
-	g_pSettings->addFeature(-1, bitSet1, L"Ω‚À¯À˘”––À»§µ„", feat_btn, &hack::casinoStatBitSet1, 8);
-	int approach = g_pSettings->addFeature(-1, bitSet1, L"«¿ΩŸ∑Ω Ω >>", feat_parent);
-	g_pSettings->addFeature(-1, approach, L"«±––ƒ‰◊Ÿ", feat_btn, &hack::casinoStatBitSet1, 0);
-	g_pSettings->addFeature(-1, approach, L"±¯≤ª—·’©", feat_btn, &hack::casinoStatBitSet1, 1);
-	g_pSettings->addFeature(-1, approach, L"∆¯ ∆–⁄–⁄", feat_btn, &hack::casinoStatBitSet1, 2);
-	int target = g_pSettings->addFeature(-1, bitSet1, L"«¿ΩŸŒÔ∆∑ >>", feat_parent);
-	g_pSettings->addFeature(-1, target, L"œ÷Ω", feat_btn, &hack::casinoStatBitSet1, 3);
-	g_pSettings->addFeature(-1, target, L"ª∆Ω", feat_btn, &hack::casinoStatBitSet1, 4);
-	g_pSettings->addFeature(-1, target, L"“’ ı∆∑", feat_btn, &hack::casinoStatBitSet1, 5);
-	g_pSettings->addFeature(-1, target, L"◊Í Ø", feat_btn, &hack::casinoStatBitSet1, 6);
-	int bitSet2 = g_pSettings->addFeature(-1, casino, L"µ⁄∂˛øÈº∆ªÆ∞Â >>", feat_parent);
-	g_pSettings->addFeature(-1, bitSet2, L"“ªº¸Ω‚À¯°¢◊Ó∏ﬂµ»º∂", feat_btn, &hack::casinoStatBitSet2, 11);
-	g_pSettings->addFeature(-1, bitSet2, L"œ˜»ıµ–»À◊∞±∏", feat_btn, &hack::casinoStatBitSet2, 0);
-	g_pSettings->addFeature(-1, bitSet2, L"‘ø≥◊ø®◊Ó∏ﬂº∂", feat_btn, &hack::casinoStatBitSet2, 1);
-	g_pSettings->addFeature(-1, bitSet2, L"◊ÓµÕ∑÷∫Ï«π ÷", feat_btn, &hack::casinoStatBitSet2, 2);
-	g_pSettings->addFeature(-1, bitSet2, L"◊ÓµÕ∑÷∫ÏÀæª˙", feat_btn, &hack::casinoStatBitSet2, 3);
-	g_pSettings->addFeature(-1, bitSet2, L"◊Ó∏ﬂº∂∫⁄øÕ", feat_btn, &hack::casinoStatBitSet2, 4);
-	int vehs = g_pSettings->addFeature(-1, bitSet2, L"Ã”Õˆ‘ÿæﬂ >>", feat_parent);
+	g_pSettings->addFeature(-1, recovery, L"ËßíËâ≤Â±ûÊÄßÂÖ®Êª°", feat_btn, &hack::fillSkillLevels);
+	g_pSettings->addFeature(-1, recovery, L"Ë°•Êª°Èõ∂È£ü„ÄÅÈò≤ÂºπË°£", feat_btn, &hack::fillAllSnacks);
+	int casino = g_pSettings->addFeature(-1, recovery, L"ËµåÂú∫Ë±™Âä´ >>", feat_parent);
+	g_pSettings->addFeature(-1, casino, L"Ê∏ÖÈô§ÂÜ∑Âç¥Êó∂Èó¥", feat_btn, &hack::casinoStat);
+	int bitSet1 = g_pSettings->addFeature(-1, casino, L"Á¨¨‰∏ÄÂùóËÆ°ÂàíÊùø >>", feat_parent);
+	g_pSettings->addFeature(-1, bitSet1, L"Ëß£ÈîÅÊâÄÊúâÊé¢Êü•ÁÇπ", feat_btn, &hack::casinoStatBitSet1, 7);
+	g_pSettings->addFeature(-1, bitSet1, L"Ëß£ÈîÅÊâÄÊúâÂÖ¥Ë∂£ÁÇπ", feat_btn, &hack::casinoStatBitSet1, 8);
+	int approach = g_pSettings->addFeature(-1, bitSet1, L"Êä¢Âä´ÊñπÂºè >>", feat_parent);
+	g_pSettings->addFeature(-1, approach, L"ÊΩúË°åÂåøË∏™", feat_btn, &hack::casinoStatBitSet1, 0);
+	g_pSettings->addFeature(-1, approach, L"ÂÖµ‰∏çÂéåËØà", feat_btn, &hack::casinoStatBitSet1, 1);
+	g_pSettings->addFeature(-1, approach, L"Ê∞îÂäøÊ±πÊ±π", feat_btn, &hack::casinoStatBitSet1, 2);
+	int target = g_pSettings->addFeature(-1, bitSet1, L"Êä¢Âä´Áâ©ÂìÅ >>", feat_parent);
+	g_pSettings->addFeature(-1, target, L"Áé∞Èáë", feat_btn, &hack::casinoStatBitSet1, 3);
+	g_pSettings->addFeature(-1, target, L"ÈªÑÈáë", feat_btn, &hack::casinoStatBitSet1, 4);
+	g_pSettings->addFeature(-1, target, L"Ëâ∫ÊúØÂìÅ", feat_btn, &hack::casinoStatBitSet1, 5);
+	g_pSettings->addFeature(-1, target, L"ÈíªÁü≥", feat_btn, &hack::casinoStatBitSet1, 6);
+	int bitSet2 = g_pSettings->addFeature(-1, casino, L"Á¨¨‰∫åÂùóËÆ°ÂàíÊùø >>", feat_parent);
+	g_pSettings->addFeature(-1, bitSet2, L"‰∏ÄÈîÆËß£ÈîÅ„ÄÅÊúÄÈ´òÁ≠âÁ∫ß", feat_btn, &hack::casinoStatBitSet2, 11);
+	g_pSettings->addFeature(-1, bitSet2, L"ÂâäÂº±Êïå‰∫∫Ë£ÖÂ§á", feat_btn, &hack::casinoStatBitSet2, 0);
+	g_pSettings->addFeature(-1, bitSet2, L"Èí•ÂåôÂç°ÊúÄÈ´òÁ∫ß", feat_btn, &hack::casinoStatBitSet2, 1);
+	g_pSettings->addFeature(-1, bitSet2, L"ÊúÄ‰ΩéÂàÜÁ∫¢Êû™Êâã", feat_btn, &hack::casinoStatBitSet2, 2);
+	g_pSettings->addFeature(-1, bitSet2, L"ÊúÄ‰ΩéÂàÜÁ∫¢Âè∏Êú∫", feat_btn, &hack::casinoStatBitSet2, 3);
+	g_pSettings->addFeature(-1, bitSet2, L"ÊúÄÈ´òÁ∫ßÈªëÂÆ¢", feat_btn, &hack::casinoStatBitSet2, 4);
+	int vehs = g_pSettings->addFeature(-1, bitSet2, L"ÈÄÉ‰∫°ËΩΩÂÖ∑ >>", feat_parent);
 	g_pSettings->addFeature(-1, vehs, L"0", feat_btn, &hack::casinoStatBitSet2, 5);
 	g_pSettings->addFeature(-1, vehs, L"1", feat_btn, &hack::casinoStatBitSet2, 6);
 	g_pSettings->addFeature(-1, vehs, L"2", feat_btn, &hack::casinoStatBitSet2, 7);
 	g_pSettings->addFeature(-1, vehs, L"3", feat_btn, &hack::casinoStatBitSet2, 8);
-	int weaps = g_pSettings->addFeature(-1, bitSet2, L"Œ‰∆˜ >>", feat_parent);
+	int weaps = g_pSettings->addFeature(-1, bitSet2, L"Ê≠¶Âô® >>", feat_parent);
 	g_pSettings->addFeature(-1, weaps, L"0", feat_btn, &hack::casinoStatBitSet2, 9);
 	g_pSettings->addFeature(-1, weaps, L"1", feat_btn, &hack::casinoStatBitSet2, 10);
-	int casinoCut = g_pSettings->addFeature(-1, casino, L"∑÷∫Ï…Ë÷√ >>", feat_parent);
-	g_iFeature[FEATURE_G_CASINO_CUT_0] = g_pSettings->addFeature(-1, casinoCut, L"ÕÊº“1", feat_slider, "casinoCut0", 0.f, 85.f, (float)1.f / 9.f);
-	g_iFeature[FEATURE_G_CASINO_CUT_1] = g_pSettings->addFeature(-1, casinoCut, L"ÕÊº“2", feat_slider, "casinoCut1", 0.f, 85.f, (float)1.f / 9.f);
-	g_iFeature[FEATURE_G_CASINO_CUT_2] = g_pSettings->addFeature(-1, casinoCut, L"ÕÊº“3", feat_slider, "casinoCut2", 0.f, 85.f, (float)1.f / 9.f);
-	g_iFeature[FEATURE_G_CASINO_CUT_3] = g_pSettings->addFeature(-1, casinoCut, L"ÕÊº“4", feat_slider, "casinoCut3", 0.f, 85.f, (float)1.f / 9.f);
+	int casinoCut = g_pSettings->addFeature(-1, casino, L"ÂàÜÁ∫¢ËÆæÁΩÆ >>", feat_parent);
+	g_iFeature[FEATURE_G_CASINO_CUT_0] = g_pSettings->addFeature(-1, casinoCut, L"Áé©ÂÆ∂1", feat_slider, "casinoCut0", 0.f, 85.f, (float)1.f / 9.f);
+	g_iFeature[FEATURE_G_CASINO_CUT_1] = g_pSettings->addFeature(-1, casinoCut, L"Áé©ÂÆ∂2", feat_slider, "casinoCut1", 0.f, 85.f, (float)1.f / 9.f);
+	g_iFeature[FEATURE_G_CASINO_CUT_2] = g_pSettings->addFeature(-1, casinoCut, L"Áé©ÂÆ∂3", feat_slider, "casinoCut2", 0.f, 85.f, (float)1.f / 9.f);
+	g_iFeature[FEATURE_G_CASINO_CUT_3] = g_pSettings->addFeature(-1, casinoCut, L"Áé©ÂÆ∂4", feat_slider, "casinoCut3", 0.f, 85.f, (float)1.f / 9.f);
 
-	int perico = g_pSettings->addFeature(-1, recovery, L"≈Â¿Ôø∆µ∫ >>", feat_parent);
-	g_pSettings->addFeature(-1, perico, L"÷±Ω”ø™∆Ù÷’’¬", feat_btn, &hack::pericoStat);
-	int bitSet3 = g_pSettings->addFeature(-1, perico, L"Ω‚À¯Ãıƒø°æ«È±®°ø >>", feat_parent);
-	g_pSettings->addFeature(-1, bitSet3, L"Ω‚À¯À˘”–Ã”¿Îµ„", feat_btn, &hack::pericoStatBitSet1, 8);
-	g_pSettings->addFeature(-1, bitSet3, L"Ω‚À¯À˘”–∫¿’¨»Îø⁄", feat_btn, &hack::pericoStatBitSet1, 6);
-	g_pSettings->addFeature(-1, bitSet3, L"Ω‚À¯À˘”––À»§µ„", feat_btn, &hack::pericoStatBitSet1, 5);
-	g_pSettings->addFeature(-1, bitSet3, L"Ω‚À¯Õ≈∂”÷ß≥÷", feat_btn, &hack::pericoStatBitSet1, 7);
-	int secondary = g_pSettings->addFeature(-1, bitSet3, L"Ω‚À¯¥Œ“™ƒø±Í >>", feat_parent);
-	g_pSettings->addFeature(-1, secondary, L"À˘”–œ÷Ω", feat_btn, &hack::pericoStatBitSet1, 0);
-	g_pSettings->addFeature(-1, secondary, L"À˘”–ª∆Ω", feat_btn, &hack::pericoStatBitSet1, 1);
-	g_pSettings->addFeature(-1, secondary, L"À˘”–¥Û¬È", feat_btn, &hack::pericoStatBitSet1, 2);
-	g_pSettings->addFeature(-1, secondary, L"À˘”–ø…ø®“Ú", feat_btn, &hack::pericoStatBitSet1, 3);
-	g_pSettings->addFeature(-1, secondary, L"À˘”–“’ ı∆∑", feat_btn, &hack::pericoStatBitSet1, 4);
-	int primary = g_pSettings->addFeature(-1, bitSet3, L"÷˜“™ƒø±Í >>", feat_parent);
-	g_pSettings->addFeature(-1, primary, L"¡˙…‡¿ºæ∆", feat_btn, &hack::pericoStatBitSet1, 9);
-	g_pSettings->addFeature(-1, primary, L"∫Ï±¶ ØœÓ¡¥", feat_btn, &hack::pericoStatBitSet1, 10);
-	g_pSettings->addFeature(-1, primary, L"Œﬁ√˚’Æ»Ø", feat_btn, &hack::pericoStatBitSet1, 11);
-	g_pSettings->addFeature(-1, primary, L"∑€∫Ï◊Í Ø", feat_btn, &hack::pericoStatBitSet1, 12);
-	g_pSettings->addFeature(-1, primary, L"MadrazoŒƒº˛", feat_btn, &hack::pericoStatBitSet1, 13);
-	g_pSettings->addFeature(-1, primary, L"∫⁄±™µÒœÒ", feat_btn, &hack::pericoStatBitSet1, 14);
-	int bitSet4 = g_pSettings->addFeature(-1, perico, L"Ω‚À¯Ãıƒø°æ«∞÷√°ø >>", feat_parent);
-	int interfere = g_pSettings->addFeature(-1, bitSet4, L"Ω‚À¯∏…»≈ >>", feat_parent);
-	g_pSettings->addFeature(-1, interfere, L"Œ‰∆˜", feat_btn, &hack::pericoStatBitSet2, 6);
-	g_pSettings->addFeature(-1, interfere, L"∑¿µØ“¬", feat_btn, &hack::pericoStatBitSet2, 7);
-	g_pSettings->addFeature(-1, interfere, L"ø’÷–÷ß‘Æ", feat_btn, &hack::pericoStatBitSet2, 8);
-	int weapss = g_pSettings->addFeature(-1, bitSet4, L"Œ‰∆˜—°‘Ò >>", feat_parent);
-	g_pSettings->addFeature(-1, weapss, L"«÷¬‘’ﬂÃ◊◊∞", feat_btn, &hack::pericoStatBitSet2, 1);
-	g_pSettings->addFeature(-1, weapss, L"“ıƒ±’ﬂÃ◊◊∞", feat_btn, &hack::pericoStatBitSet2, 2);
-	g_pSettings->addFeature(-1, weapss, L"…Ò«π ÷Ã◊◊∞", feat_btn, &hack::pericoStatBitSet2, 3);
-	g_pSettings->addFeature(-1, weapss, L"∆∆ªµ’ﬂÃ◊◊∞", feat_btn, &hack::pericoStatBitSet2, 4);
-	g_pSettings->addFeature(-1, weapss, L"…Ò…‰ ÷Ã◊◊∞", feat_btn, &hack::pericoStatBitSet2, 5);
-	g_pSettings->addFeature(-1, bitSet4, L"ªÒ»°◊•π≥", feat_btn, &hack::pericoStatBitSet2, 9);
-	g_pSettings->addFeature(-1, bitSet4, L"ÃÊªª“¬∑˛", feat_btn, &hack::pericoStatBitSet2, 10);
-	g_pSettings->addFeature(-1, bitSet4, L"¬›Àø«–∏Ó", feat_btn, &hack::pericoStatBitSet2, 11);
-	int unlock = g_pSettings->addFeature(-1, recovery, L"Ω‚À¯ >>", feat_parent);
-	g_pSettings->addFeature(-1, unlock, L"Ω‚À¯∏ƒ≥µ≈‰º˛", feat_btn, &hack::unlockLSC);
-	g_pSettings->addFeature(-1, unlock, L"Ω‚À¯Œ‰∆˜Õø◊∞", feat_btn, &hack::unlockWeaponCamos);
-	g_pSettings->addFeature(-1, unlock, L"Ω‚À¯«¿ΩŸ≥µ¡æ≈˙∑¢º€", feat_btn, &hack::unlockHeistCars);
-	g_pSettings->addFeature(-1, unlock, L"Ω‚À¯Ω±’¬", feat_btn, &hack::unlockAllAwards);
-	g_pSettings->addFeature(-1, unlock, L"Ω‚À¯“¬∑˛", feat_btn, &hack::unlockClothes);
-	g_iFeature[FEATURE_G_BUNKER_RESEARCH] = g_pSettings->addFeature(-1, unlock, L"Ω‚À¯À˘”–µÿ±§—–æø(¡Ÿ ±)", feat_toggle, "BunkerResearch");
+	int perico = g_pSettings->addFeature(-1, recovery, L"‰Ω©ÈáåÁßëÂ≤õ >>", feat_parent);
+	g_pSettings->addFeature(-1, perico, L"Áõ¥Êé•ÂºÄÂêØÁªàÁ´†", feat_btn, &hack::pericoStat);
+	int bitSet3 = g_pSettings->addFeature(-1, perico, L"Ëß£ÈîÅÊù°ÁõÆ„ÄêÊÉÖÊä•„Äë >>", feat_parent);
+	g_pSettings->addFeature(-1, bitSet3, L"Ëß£ÈîÅÊâÄÊúâÈÄÉÁ¶ªÁÇπ", feat_btn, &hack::pericoStatBitSet1, 8);
+	g_pSettings->addFeature(-1, bitSet3, L"Ëß£ÈîÅÊâÄÊúâË±™ÂÆÖÂÖ•Âè£", feat_btn, &hack::pericoStatBitSet1, 6);
+	g_pSettings->addFeature(-1, bitSet3, L"Ëß£ÈîÅÊâÄÊúâÂÖ¥Ë∂£ÁÇπ", feat_btn, &hack::pericoStatBitSet1, 5);
+	g_pSettings->addFeature(-1, bitSet3, L"Ëß£ÈîÅÂõ¢ÈòüÊîØÊåÅ", feat_btn, &hack::pericoStatBitSet1, 7);
+	int secondary = g_pSettings->addFeature(-1, bitSet3, L"Ëß£ÈîÅÊ¨°Ë¶ÅÁõÆÊ†á >>", feat_parent);
+	g_pSettings->addFeature(-1, secondary, L"ÊâÄÊúâÁé∞Èáë", feat_btn, &hack::pericoStatBitSet1, 0);
+	g_pSettings->addFeature(-1, secondary, L"ÊâÄÊúâÈªÑÈáë", feat_btn, &hack::pericoStatBitSet1, 1);
+	g_pSettings->addFeature(-1, secondary, L"ÊâÄÊúâÂ§ßÈ∫ª", feat_btn, &hack::pericoStatBitSet1, 2);
+	g_pSettings->addFeature(-1, secondary, L"ÊâÄÊúâÂèØÂç°Âõ†", feat_btn, &hack::pericoStatBitSet1, 3);
+	g_pSettings->addFeature(-1, secondary, L"ÊâÄÊúâËâ∫ÊúØÂìÅ", feat_btn, &hack::pericoStatBitSet1, 4);
+	int primary = g_pSettings->addFeature(-1, bitSet3, L"‰∏ªË¶ÅÁõÆÊ†á >>", feat_parent);
+	g_pSettings->addFeature(-1, primary, L"ÈæôËàåÂÖ∞ÈÖí", feat_btn, &hack::pericoStatBitSet1, 9);
+	g_pSettings->addFeature(-1, primary, L"Á∫¢ÂÆùÁü≥È°πÈìæ", feat_btn, &hack::pericoStatBitSet1, 10);
+	g_pSettings->addFeature(-1, primary, L"Êó†ÂêçÂÄ∫Âà∏", feat_btn, &hack::pericoStatBitSet1, 11);
+	g_pSettings->addFeature(-1, primary, L"Á≤âÁ∫¢ÈíªÁü≥", feat_btn, &hack::pericoStatBitSet1, 12);
+	g_pSettings->addFeature(-1, primary, L"MadrazoÊñá‰ª∂", feat_btn, &hack::pericoStatBitSet1, 13);
+	g_pSettings->addFeature(-1, primary, L"ÈªëË±πÈõïÂÉè", feat_btn, &hack::pericoStatBitSet1, 14);
+	int bitSet4 = g_pSettings->addFeature(-1, perico, L"Ëß£ÈîÅÊù°ÁõÆ„ÄêÂâçÁΩÆ„Äë >>", feat_parent);
+	int interfere = g_pSettings->addFeature(-1, bitSet4, L"Ëß£ÈîÅÂπ≤Êâ∞ >>", feat_parent);
+	g_pSettings->addFeature(-1, interfere, L"Ê≠¶Âô®", feat_btn, &hack::pericoStatBitSet2, 6);
+	g_pSettings->addFeature(-1, interfere, L"Èò≤ÂºπË°£", feat_btn, &hack::pericoStatBitSet2, 7);
+	g_pSettings->addFeature(-1, interfere, L"Á©∫‰∏≠ÊîØÊè¥", feat_btn, &hack::pericoStatBitSet2, 8);
+	int weapss = g_pSettings->addFeature(-1, bitSet4, L"Ê≠¶Âô®ÈÄâÊã© >>", feat_parent);
+	g_pSettings->addFeature(-1, weapss, L"‰æµÁï•ËÄÖÂ•óË£Ö", feat_btn, &hack::pericoStatBitSet2, 1);
+	g_pSettings->addFeature(-1, weapss, L"Èò¥Ë∞ãËÄÖÂ•óË£Ö", feat_btn, &hack::pericoStatBitSet2, 2);
+	g_pSettings->addFeature(-1, weapss, L"Á•ûÊû™ÊâãÂ•óË£Ö", feat_btn, &hack::pericoStatBitSet2, 3);
+	g_pSettings->addFeature(-1, weapss, L"Á†¥ÂùèËÄÖÂ•óË£Ö", feat_btn, &hack::pericoStatBitSet2, 4);
+	g_pSettings->addFeature(-1, weapss, L"Á•ûÂ∞ÑÊâãÂ•óË£Ö", feat_btn, &hack::pericoStatBitSet2, 5);
+	g_pSettings->addFeature(-1, bitSet4, L"Ëé∑ÂèñÊäìÈí©", feat_btn, &hack::pericoStatBitSet2, 9);
+	g_pSettings->addFeature(-1, bitSet4, L"ÊõøÊç¢Ë°£Êúç", feat_btn, &hack::pericoStatBitSet2, 10);
+	g_pSettings->addFeature(-1, bitSet4, L"Ëû∫‰∏ùÂàáÂâ≤", feat_btn, &hack::pericoStatBitSet2, 11);
+	int unlock = g_pSettings->addFeature(-1, recovery, L"Ëß£ÈîÅ >>", feat_parent);
+	g_pSettings->addFeature(-1, unlock, L"Ëß£ÈîÅÊîπËΩ¶ÈÖç‰ª∂", feat_btn, &hack::unlockLSC);
+	g_pSettings->addFeature(-1, unlock, L"Ëß£ÈîÅÊ≠¶Âô®Ê∂ÇË£Ö", feat_btn, &hack::unlockWeaponCamos);
+	g_pSettings->addFeature(-1, unlock, L"Ëß£ÈîÅÊä¢Âä´ËΩ¶ËæÜÊâπÂèë‰ª∑", feat_btn, &hack::unlockHeistCars);
+	g_pSettings->addFeature(-1, unlock, L"Ëß£ÈîÅÂ•ñÁ´†", feat_btn, &hack::unlockAllAwards);
+	g_pSettings->addFeature(-1, unlock, L"Ëß£ÈîÅË°£Êúç", feat_btn, &hack::unlockClothes);
+	g_iFeature[FEATURE_G_BUNKER_RESEARCH] = g_pSettings->addFeature(-1, unlock, L"Ëß£ÈîÅÊâÄÊúâÂú∞Â†°Á†îÁ©∂(‰∏¥Êó∂)", feat_toggle, "BunkerResearch");
 
-	int merryweather = g_pSettings->addFeature(-1, olService, L"√∑¿˚Õ˛…™ >>", feat_parent);
-	int dropWeapon = g_pSettings->addFeature(-1, olService, L"ªÒµ√Œ‰∆˜ >>", feat_parent);
+	int merryweather = g_pSettings->addFeature(-1, olService, L"Ê¢ÖÂà©Â®ÅÁëü >>", feat_parent);
+	int dropWeapon = g_pSettings->addFeature(-1, olService, L"Ëé∑ÂæóÊ≠¶Âô® >>", feat_parent);
 	for (int i = 0; i < weaponPreview.size(); i++)
 	{
 		int temp = g_pSettings->addFeature(-1, dropWeapon, weaponPreview[i].first, feat_parent);
 		for (int j = 0; j < weaponPreview[i].second.size(); j++)
 			g_pSettings->addFeature(-1, temp, weaponPreview[i].second[j].Name, feat_btn, &hack::selfDropWeapon, i, j);
 	}
-	g_pSettings->addFeature(-1, merryweather, L"≈£ˆËÿ∫Õ™ø’Õ∂", feat_btn, &hack::bullSharkDrop);
-	g_pSettings->addFeature(-1, merryweather, L"µØ“©ø’Õ∂", feat_btn, &hack::ammoDrop);
-	g_pSettings->addFeature(-1, merryweather, L"ŒﬁŒ∑’Ω øø’Õ∂", feat_btn, &hack::miniGunDrop);
-	g_pSettings->addFeature(-1, merryweather, L"¥¨÷ªΩ”ÀÕ", feat_btn, &hack::boatTaxi);
-	g_pSettings->addFeature(-1, merryweather, L"÷±…˝ª˙Ω”ÀÕ", feat_btn, &hack::heliTaxi);
-	g_pSettings->addFeature(-1, merryweather, L"÷ß‘Æ÷±…˝ª˙", feat_btn, &hack::backupHeli);
-	g_pSettings->addFeature(-1, merryweather, L"ø’œÆ", feat_btn, &hack::airstrike);
-	int lester = g_pSettings->addFeature(-1, olService, L"¿≥ÀπÃÿ >>", feat_parent);
-	g_iFeature[FEATURE_G_OFF_RADAR] = g_pSettings->addFeature(-1, lester, L"¿◊¥Ô“˛ƒ‰", feat_toggle, "offRadar");
-	g_iFeature[FEATURE_G_GHOST_ORAGNIZATIO] = g_pSettings->addFeature(-1, lester, L"”ƒ¡È◊È÷Ø(ΩˆœﬁCEO)", feat_toggle, "ghostOragnization");
-	g_iFeature[FEATURE_G_BLIND_COPS] = g_pSettings->addFeature(-1, lester, L"æØ≤ÏŒﬁ ”∑∏◊Ô", feat_toggle, "blindCops");
-	g_iFeature[FEATURE_G_REVEAL_PLAYERS] = g_pSettings->addFeature(-1, lester, L"œ‘ æÀ˘”–ÕÊº“", feat_toggle, "revealPlayers");
+	g_pSettings->addFeature(-1, merryweather, L"ÁâõÈ≤®ÁùæÈÖÆÁ©∫Êäï", feat_btn, &hack::bullSharkDrop);
+	g_pSettings->addFeature(-1, merryweather, L"ÂºπËçØÁ©∫Êäï", feat_btn, &hack::ammoDrop);
+	g_pSettings->addFeature(-1, merryweather, L"Êó†ÁïèÊàòÂ£´Á©∫Êäï", feat_btn, &hack::miniGunDrop);
+	g_pSettings->addFeature(-1, merryweather, L"ËàπÂè™Êé•ÈÄÅ", feat_btn, &hack::boatTaxi);
+	g_pSettings->addFeature(-1, merryweather, L"Áõ¥ÂçáÊú∫Êé•ÈÄÅ", feat_btn, &hack::heliTaxi);
+	g_pSettings->addFeature(-1, merryweather, L"ÊîØÊè¥Áõ¥ÂçáÊú∫", feat_btn, &hack::backupHeli);
+	g_pSettings->addFeature(-1, merryweather, L"Á©∫Ë¢≠", feat_btn, &hack::airstrike);
+	int lester = g_pSettings->addFeature(-1, olService, L"Ëé±ÊñØÁâπ >>", feat_parent);
+	g_iFeature[FEATURE_G_OFF_RADAR] = g_pSettings->addFeature(-1, lester, L"Èõ∑ËææÈöêÂåø", feat_toggle, "offRadar");
+	g_iFeature[FEATURE_G_GHOST_ORAGNIZATIO] = g_pSettings->addFeature(-1, lester, L"ÂπΩÁÅµÁªÑÁªá(‰ªÖÈôêCEO)", feat_toggle, "ghostOragnization");
+	g_iFeature[FEATURE_G_BLIND_COPS] = g_pSettings->addFeature(-1, lester, L"Ë≠¶ÂØüÊó†ËßÜÁäØÁΩ™", feat_toggle, "blindCops");
+	g_iFeature[FEATURE_G_REVEAL_PLAYERS] = g_pSettings->addFeature(-1, lester, L"ÊòæÁ§∫ÊâÄÊúâÁé©ÂÆ∂", feat_toggle, "revealPlayers");
 
-	g_iFeature[FEATURE_G_BULL_SHARK] = g_pSettings->addFeature(-1, olService, L"≈£ˆËÿ∫Õ™", feat_toggle, "bullShark");
-	g_iFeature[FEATURE_G_DISABLE_THE_PHONE] = g_pSettings->addFeature(-1, olService, L"∆¡±Œ¿¥µÁ", feat_toggle, "disableThePhone");
-	g_iFeature[FEATURE_G_PASSIVE_CD] = g_pSettings->addFeature(-1, olService, L"…±»À∫Û±ª∂ØŒﬁ¿‰»¥", feat_toggle, "removePassiveModeCD");
-	g_iFeature[FEATURE_G_SEEL_NON_PUB] = g_pSettings->addFeature(-1, olService, L"∑«π´ø™’Ωæ÷‘Àªı", feat_toggle, "allowSellOnNonPublic");
-	int protection = g_pSettings->addFeature(4, -1, L"∑¿ª§ >>", feat_parent);
-	g_iFeature[FEATURE_G_ANTI_CEO_KICK] = g_pSettings->addFeature(-1, protection, L"CEOÃﬂ≥ˆ∑¿ª§", feat_toggle, "antiCEOKick");
-	g_iFeature[FEATURE_G_ANTI_KICK] = g_pSettings->addFeature(-1, protection, L"Ãﬂ≥ˆ∑¿ª§", feat_toggle, "antiKickToSP");
-	g_iFeature[FEATURE_G_ANTI_TP] = g_pSettings->addFeature(-1, protection, L"π´‘¢¥´ÀÕ∑¿ª§", feat_toggle, "antiApartmentTp");
-	g_iFeature[FEATURE_G_ANTI_BOUNTY] = g_pSettings->addFeature(-1, protection, L"–¸…Õ∑¿ª§", feat_toggle, "antiRemoteBounty");
-	g_iFeature[FEATURE_G_ANTI_WEATHER] = g_pSettings->addFeature(-1, protection, L"ÃÏ∆¯øÿ÷∆∑¿ª§", feat_toggle, "antiWeatherControl");
-	g_iFeature[FEATURE_G_ANTI_VEH_KICK] = g_pSettings->addFeature(-1, protection, L"‘ÿæﬂÃﬂ≥ˆ∑¿ª§", feat_toggle, "antiRemoteVehicleKick");
-	g_iFeature[FEATURE_G_ANTI_SEND_MISSION] = g_pSettings->addFeature(-1, protection, L"«ø÷∆Ω¯»ŒŒÒ∑¿ª§", feat_toggle, "antiRemoteForceMission");
-	g_pSettings->addFeature(4, -1, L"GitHub - πÿ”⁄", feat_btn, &hack::about, 0);
-	g_pSettings->addFeature(4, -1, L"ºÏ≤È∏¸–¬", feat_btn, &hack::about, 1);
-	g_pSettings->addFeature(4, -1, L"æË‘˘ - Œ™Œ“∏¸∫√µƒø™∑¢Ã·π©∂Ø¡¶", feat_btn, &hack::about, 2);
+	g_iFeature[FEATURE_G_BULL_SHARK] = g_pSettings->addFeature(-1, olService, L"ÁâõÈ≤®ÁùæÈÖÆ", feat_toggle, "bullShark");
+	g_iFeature[FEATURE_G_DISABLE_THE_PHONE] = g_pSettings->addFeature(-1, olService, L"Â±èËîΩÊù•Áîµ", feat_toggle, "disableThePhone");
+	g_iFeature[FEATURE_G_PASSIVE_CD] = g_pSettings->addFeature(-1, olService, L"ÊùÄ‰∫∫ÂêéË¢´Âä®Êó†ÂÜ∑Âç¥", feat_toggle, "removePassiveModeCD");
+	g_iFeature[FEATURE_G_SEEL_NON_PUB] = g_pSettings->addFeature(-1, olService, L"ÈùûÂÖ¨ÂºÄÊàòÂ±ÄËøêË¥ß", feat_toggle, "allowSellOnNonPublic");
+	int protection = g_pSettings->addFeature(4, -1, L"Èò≤Êä§ >>", feat_parent);
+	g_iFeature[FEATURE_G_ANTI_CEO_KICK] = g_pSettings->addFeature(-1, protection, L"CEOË∏¢Âá∫Èò≤Êä§", feat_toggle, "antiCEOKick");
+	g_iFeature[FEATURE_G_ANTI_KICK] = g_pSettings->addFeature(-1, protection, L"Ë∏¢Âá∫Èò≤Êä§", feat_toggle, "antiKickToSP");
+	g_iFeature[FEATURE_G_ANTI_TP] = g_pSettings->addFeature(-1, protection, L"ÂÖ¨ÂØì‰º†ÈÄÅÈò≤Êä§", feat_toggle, "antiApartmentTp");
+	g_iFeature[FEATURE_G_ANTI_BOUNTY] = g_pSettings->addFeature(-1, protection, L"ÊÇ¨ËµèÈò≤Êä§", feat_toggle, "antiRemoteBounty");
+	g_iFeature[FEATURE_G_ANTI_WEATHER] = g_pSettings->addFeature(-1, protection, L"Â§©Ê∞îÊéßÂà∂Èò≤Êä§", feat_toggle, "antiWeatherControl");
+	g_iFeature[FEATURE_G_ANTI_VEH_KICK] = g_pSettings->addFeature(-1, protection, L"ËΩΩÂÖ∑Ë∏¢Âá∫Èò≤Êä§", feat_toggle, "antiRemoteVehicleKick");
+	g_iFeature[FEATURE_G_ANTI_SEND_MISSION] = g_pSettings->addFeature(-1, protection, L"Âº∫Âà∂Ëøõ‰ªªÂä°Èò≤Êä§", feat_toggle, "antiRemoteForceMission");
+	g_pSettings->addFeature(4, -1, L"GitHub - ÂÖ≥‰∫é", feat_btn, &hack::about, 0);
+	g_pSettings->addFeature(4, -1, L"Ê£ÄÊü•Êõ¥Êñ∞", feat_btn, &hack::about, 1);
+	g_pSettings->addFeature(4, -1, L"ÊçêËµ† - ‰∏∫ÊàëÊõ¥Â•ΩÁöÑÂºÄÂèëÊèê‰æõÂä®Âäõ", feat_btn, &hack::about, 2);
 
 
 	g_pSettings->setActiveCat(0);			//this needs to be called so we can fill the current feature buffer
@@ -496,7 +496,7 @@ DWORD __stdcall threadAttach(LPVOID lpParam)
 		}
 		else
 		{
-			MessageBoxW(nullptr, L"«Î»∑±£GTA5’˝‘⁄‘À––!", L"subVersionº”‘ÿ ß∞‹", MB_OK | MB_ICONERROR);
+			MessageBoxW(nullptr, L"ËØ∑Á°Æ‰øùGTA5Ê≠£Âú®ËøêË°å!", L"subVersionÂä†ËΩΩÂ§±Ë¥•", MB_OK | MB_ICONERROR);
 			g_bKillAttach = true;
 			killProgram();
 		}

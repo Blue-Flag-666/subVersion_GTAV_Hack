@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef PATTERNBATCH_H
 #define PATTERNBATCH_H
 

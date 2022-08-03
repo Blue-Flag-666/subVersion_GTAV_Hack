@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	Copyright 2016-2017 sub1to
 
 	This file is part of subVersion GTA:O SC External Hack.
@@ -517,7 +517,7 @@ featParent::~featParent() {}
 
 void	featParent::toggle()
 {
-	if (m_szName == L"Íæ¼ÒÁĞ±í >>")
+	if (m_szName == L"ç©å®¶åˆ—è¡¨ >>")
 		g_pHack->renderPlayerList();
 	m_iActiveFeatureRet = g_pSettings->getActiveFeature();
 	m_iDisplayOffsetRet	= g_pSettings->getDisplayOffset();
@@ -546,7 +546,7 @@ void iniParser::read()
 	file.open(m_szFile, std::ios::in);
 	if (!file.is_open())
 	{
-		MessageBoxW(nullptr, L"Î´ÕÒµ½settings.iniÅäÖÃÎÄ¼ş£¬Çë½«Ñ¹Ëõ°üÖĞËùÓĞÎÄ¼ş½âÑ¹µ½Í¬Ò»Ä¿Â¼!", L"subVersion¼ÓÔØÊ§°Ü", MB_OK | MB_ICONERROR);
+		MessageBoxW(nullptr, L"æœªæ‰¾åˆ°settings.inié…ç½®æ–‡ä»¶ï¼Œè¯·å°†å‹ç¼©åŒ…ä¸­æ‰€æœ‰æ–‡ä»¶è§£å‹åˆ°åŒä¸€ç›®å½•!", L"subVersionåŠ è½½å¤±è´¥", MB_OK | MB_ICONERROR);
 		g_bKillAttach = true;
 		killProgram();
 		return;

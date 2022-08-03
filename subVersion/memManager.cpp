@@ -1,4 +1,4 @@
-/*
+﻿/*
 	Copyright 2016-2017 sub1to
 
 	This file is part of subVersion GTA:O SC External Hack.

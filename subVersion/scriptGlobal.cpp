@@ -1,4 +1,4 @@
-#include "scriptGlobal.h"
+﻿#include "scriptGlobal.h"
 
 scriptGlobal::scriptGlobal(std::size_t index) :
 	m_index(index)

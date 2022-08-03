@@ -84,13 +84,13 @@
 #define	OFFSET_PLAYER_INFO_RUN_SPD				0xCF0			//run speed; def 1; float
 #define OFFSET_PLAYER_INFO_FRAMEFLAGS			0x219			//frame flags; DWORD
 #define OFFSET_PLAYER_INFO_WANTED_CAN_CHANGE	0x73C			//fWantedCanChange
-#define OFFSET_PLAYER_INFO_NPC_IGNORE			0x870			//npc ignore; DWORD; everyone = 0x450000;
+#define OFFSET_PLAYER_INFO_NPC_IGNORE			0x872			//npc ignore; DWORD; everyone = 0x450000;
 #define OFFSET_PLAYER_INFO_WANTED				0x888			//wanted level; DWORD
 #define OFFSET_PLAYER_INFO_STAMINA				0xCF4			//fStamina, fStaminaMax
 #define OFFSET_PLAYER_RAGDOLL					0x10B8			//byte; CPed.noRagdoll: 0x20 = off; 0x00/0x01 = on
-#define OFFSET_PLAYER_SEATBELT					0x140C			//byte; CPed.seatBelt: 0xC8 = off; 0xC9 = on
+#define OFFSET_PLAYER_SEATBELT					0x145C			//byte; CPed.seatBelt: 0xC8 = off; 0xC9 = on
 #define OFFSET_PLAYER_INVEHICLE					0x1477
-#define OFFSET_PLAYER_ARMOR						0x14E0			//armour
+#define OFFSET_PLAYER_ARMOR						0x1530			//armour
 #define OFFSET_PLAYER_WATER_PROOF				0x188			//water proof; DWORD; +0x1000000 = on
 #define OFFSET_PLAYER_VEHICLE_DAMAGE_MP			0xD1C			//super punck/kick;float;
 

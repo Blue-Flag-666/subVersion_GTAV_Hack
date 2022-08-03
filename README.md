@@ -1,4 +1,4 @@
-# subVerison_GTAV_Hack
+﻿# subVerison_GTAV_Hack
 subVerison重置版——GTAV线上外置修改器
 
 [![](https://img.shields.io/badge/Powerd%20By-subVersion-brightgreen)](https://github.com/sub1to/subVersion_GTAO_Hack)
