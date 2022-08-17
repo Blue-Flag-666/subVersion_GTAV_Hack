@@ -1,22 +1,4 @@
-﻿/*
-	Copyright 2016-2017 sub1to
-
-	This file is part of subVersion GTA:O SC External Hack.
-
-	subVersion GTA:O SC External Hack is free software: you can redistribute
-	it and/or modify it under the terms of the GNU General Public License
-	as published by the Free Software Foundation, either version 3 of the
-	License, or (at your option) any later version.
-
-	subVersion GTA:O SC External Hack is distributed in the hope that it
-	will be useful, but WITHOUT ANY WARRANTY; without even the implied
-	warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-	the GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along
-	with subVersion GTA:O SC External Hack.  If not, see <http://www.gnu.org/licenses/>.
-*/
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "scriptGlobal.h"
 /*
 	TRAINER
@@ -27,10 +9,15 @@ trainer::trainer()
 	m_keyTmr = clock();
 }
 
-trainer::~trainer() {}
-void	trainer::checkKeys() {}
+trainer::~trainer()
+{
+}
 
-bool	trainer::checkKeyState(int key)
+void trainer::checkKeys()
+{
+}
+
+bool trainer::checkKeyState(int key)
 {
 	if (clock() - m_keyTmr > 150 && GetAsyncKeyState(key) & 0x8000)
 	{
@@ -40,18 +27,18 @@ bool	trainer::checkKeyState(int key)
 	return false;
 }
 
-
 /*
 	HACK
 */
 
+hack::hack() : m_explosion(ImpactExplosionEnum::DefaultBullets),
+			   m_mpId("MP0_")
+{
+}
 
-hack::hack() :
-	m_explosion(ImpactExplosionEnum::DefaultBullets),
-	m_mpId("MP0_")
-{}
-
-hack::~hack() {}
+hack::~hack()
+{
+}
 
 void hack::checkKeys()
 {
@@ -126,16 +113,16 @@ void hack::checkKeys()
 	}
 	if (checkKeyState(g_pSettings->m_iKeys[keyMenuSave]))
 	{
-		featTeleport* tp = dynamic_cast<featTeleport*>(g_pSettings->getFeatureCur(g_pSettings->getActiveFeature()));
+		featTeleport* tp = dynamic_cast <featTeleport*>(g_pSettings->getFeatureCur(g_pSettings->getActiveFeature()));
 		if (tp == nullptr || tp->m_tpType != tp_saved)
 			return;
 		m_player.getPos();
 		tp->m_v3Pos.x = m_player.m_v3Pos.x;
 		tp->m_v3Pos.y = m_player.m_v3Pos.y;
 		tp->m_v3Pos.z = m_player.m_v3Pos.z;
-		g_pSettings->m_iniParser.setValue<float>(tp->m_szIniKey + "_x", m_player.m_v3Pos.x, "Teleport");
-		g_pSettings->m_iniParser.setValue<float>(tp->m_szIniKey + "_y", m_player.m_v3Pos.y, "Teleport");
-		g_pSettings->m_iniParser.setValue<float>(tp->m_szIniKey + "_z", m_player.m_v3Pos.y, "Teleport");
+		g_pSettings->m_iniParser.setValue <float>(tp->m_szIniKey + "_x", m_player.m_v3Pos.x, "Teleport");
+		g_pSettings->m_iniParser.setValue <float>(tp->m_szIniKey + "_y", m_player.m_v3Pos.y, "Teleport");
+		g_pSettings->m_iniParser.setValue <float>(tp->m_szIniKey + "_z", m_player.m_v3Pos.y, "Teleport");
 		return;
 	}
 	if (checkKeyState(g_pSettings->m_iKeys[keyMenuSelect]))
@@ -154,77 +141,77 @@ BYTE hack::initPointers()
 {
 	BYTE r = 0;
 
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_hModule + ADDRESS_WORLD, &m_dwpWorldBase);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_hModule + ADDRESS_WORLD, &m_dwpWorldBase);
 	if (m_dwpWorldBase == 0)
 		return INITPTR_INVALID_WORLD;
 
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_hModule + ADDRESS_GLOBAL, &m_dwpGlobalBase);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_hModule + ADDRESS_GLOBAL, &m_dwpGlobalBase);
 	if (m_dwpGlobalBase == 0)
 		return INITPTR_INVALID_GLOBAL;
 
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_hModule + ADDRESS_REPLAY_INTERFACE, &m_dwpReplayInterfaceBase);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_hModule + ADDRESS_REPLAY_INTERFACE, &m_dwpReplayInterfaceBase);
 	if (m_dwpReplayInterfaceBase == 0)
 		return INITPTR_INVALID_REPLAY_INTERFACE;
 	m_replayInterface.m_dwpPedInterface = m_dwpReplayInterfaceBase;
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpReplayInterfaceBase + OFFSET_REPLAY_PED_INTERFACE, &m_replayInterface.m_dwpPedInterface);
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_replayInterface.m_dwpPedInterface + OFFSET_INTERFACE_LIST, &m_replayInterface.m_dwpPedList);
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpReplayInterfaceBase + OFFSET_REPLAY_PICKUP_INTERFACE, &m_replayInterface.m_dwpPickUpInterface);
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_replayInterface.m_dwpPickUpInterface + OFFSET_INTERFACE_LIST, &m_replayInterface.m_dwpPickUpList);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpReplayInterfaceBase + OFFSET_REPLAY_PED_INTERFACE, &m_replayInterface.m_dwpPedInterface);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_replayInterface.m_dwpPedInterface + OFFSET_INTERFACE_LIST, &m_replayInterface.m_dwpPedList);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpReplayInterfaceBase + OFFSET_REPLAY_PICKUP_INTERFACE, &m_replayInterface.m_dwpPickUpInterface);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_replayInterface.m_dwpPickUpInterface + OFFSET_INTERFACE_LIST, &m_replayInterface.m_dwpPickUpList);
 
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_hModule + ADDRESS_UNK_MODEL, &m_dwpUnkModelBase);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_hModule + ADDRESS_UNK_MODEL, &m_dwpUnkModelBase);
 	if (m_dwpUnkModelBase == 0)
 		return INITPTR_INVALID_UNK_MODEL;
 	m_unkModel.m_dwpUnkModelBase = m_dwpUnkModelBase;
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpUnkModelBase + 0, &m_unkModel.m_dwpUnkModelStruct);
-	
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpWorldBase + OFFSET_PLAYER, &m_dwpPlayerBase);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpUnkModelBase + 0, &m_unkModel.m_dwpUnkModelStruct);
+
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpWorldBase + OFFSET_PLAYER, &m_dwpPlayerBase);
 	if (m_dwpPlayerBase == 0)
 		return INITPTR_INVALID_PLAYER;
 	m_player.m_dwpBase = m_dwpPlayerBase;
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpPlayerBase + OFFSET_ENTITY_POSBASE, &m_player.m_dwpPosBase);
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpPlayerBase + OFFSET_PLAYER_INFO, &m_player.m_dwpPlayerInfo);
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpPlayerBase + OFFSET_ENTITY_ATTACKER, &m_dwpAttackerBase);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpPlayerBase + OFFSET_ENTITY_POSBASE, &m_player.m_dwpPosBase);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpPlayerBase + OFFSET_PLAYER_INFO, &m_player.m_dwpPlayerInfo);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpPlayerBase + OFFSET_ENTITY_ATTACKER, &m_dwpAttackerBase);
 
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpPlayerBase + OFFSET_PLAYER_VEHICLE, &m_dwpVehicleBase);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpPlayerBase + OFFSET_PLAYER_VEHICLE, &m_dwpVehicleBase);
 	if (m_dwpVehicleBase == 0)
 		r |= INITPTR_INVALID_VEHICLE;
 	else
 	{
 		m_vehicle.m_dwpBase = m_dwpVehicleBase;
-		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpVehicleBase + OFFSET_ENTITY_POSBASE, &m_vehicle.m_dwpPosBase);
-		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpVehicleBase + OFFSET_VEHICLE_HANDLING, &m_vehicle.m_handlingCur.m_dwpHandling);
+		g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpVehicleBase + OFFSET_ENTITY_POSBASE, &m_vehicle.m_dwpPosBase);
+		g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpVehicleBase + OFFSET_VEHICLE_HANDLING, &m_vehicle.m_handlingCur.m_dwpHandling);
 	}
 
 	//g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_hModule + ADDRESS_WEAPON, &m_dwpWeaponBase);
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpPlayerBase + OFFSET_WEAPON_MANAGER, &m_dwpWeaponManager);
-	g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpWeaponManager + OFFSET_WEAPON_CURRENT, &m_dwpWeaponCur);
-	if (m_dwpWeaponManager == 0 || m_dwpWeaponCur == 0 )// || m_dwpWeaponBase == 0
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpPlayerBase + OFFSET_WEAPON_MANAGER, &m_dwpWeaponManager);
+	g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpWeaponManager + OFFSET_WEAPON_CURRENT, &m_dwpWeaponCur);
+	if (m_dwpWeaponManager == 0 || m_dwpWeaponCur == 0)// || m_dwpWeaponBase == 0
 		r |= INITPTR_INVALID_WEAPON;
 	else
 	{
 		m_weapon.m_weapDataCur.m_dwpWeapon = m_dwpWeaponCur;
-		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpWeaponCur + OFFSET_WEAPON_AMMOINFO, &m_dwpAmmoInfo);
+		g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpWeaponCur + OFFSET_WEAPON_AMMOINFO, &m_dwpAmmoInfo);
 		m_weapon.m_dwpAmmoInfo = m_dwpAmmoInfo;
 	}
 
-	g_pMemMan->readMem<BYTE>((DWORD_PTR)m_hModule + ADDRESS_FRAME_FLAGS, original, sizeof(original), PAGE_EXECUTE_READWRITE);
+	g_pMemMan->readMem <BYTE>((DWORD_PTR) m_hModule + ADDRESS_FRAME_FLAGS, original, sizeof(original), PAGE_EXECUTE_READWRITE);
 
 	return r;
 }
 
 void hack::getWaypoint()
 {
-	DWORD_PTR a = (DWORD_PTR)m_hModule + ADDRESS_BLIP;
+	DWORD_PTR a = (DWORD_PTR) m_hModule + ADDRESS_BLIP;
 	for (size_t i = 2000; i > 1; i--)
 	{
 		DWORD64 n;
-		DWORD buf[2];
-		g_pMemMan->readMem<DWORD64>((DWORD_PTR)a + (i * 8), &n);
-		g_pMemMan->readMem<DWORD>((DWORD_PTR)n + 0x40, &buf[0]);
-		g_pMemMan->readMem<DWORD>((DWORD_PTR)n + 0x48, &buf[1]);
+		DWORD   buf[2];
+		g_pMemMan->readMem <DWORD64>((DWORD_PTR) a + (i * 8), &n);
+		g_pMemMan->readMem <DWORD>((DWORD_PTR) n + 0x40, &buf[0]);
+		g_pMemMan->readMem <DWORD>((DWORD_PTR) n + 0x48, &buf[1]);
 		if (n > 0 && buf[0] == 8 && buf[1] == 84)
 		{
-			g_pMemMan->readMem<v2>((DWORD_PTR)n + 0x10, &m_v2Waypoint);
+			g_pMemMan->readMem <v2>((DWORD_PTR) n + 0x10, &m_v2Waypoint);
 			break;
 		}
 	}
@@ -235,28 +222,28 @@ void hack::getWaypoint()
 void hack::getObjective()
 {
 	constexpr static int ColorYellowMission = 66;
-	constexpr static int ColorYellow = 5;
-	constexpr static int ColorWhite = 0;
-	constexpr static int ColorGreen = 2;
-	constexpr static int SpriteCrateDrop = 306;
-	constexpr static int SpriteStandard = 1;
-	constexpr static int SpriteRaceFinish = 38;
+	constexpr static int ColorYellow        = 5;
+	constexpr static int ColorWhite         = 0;
+	constexpr static int ColorGreen         = 2;
+	constexpr static int SpriteCrateDrop    = 306;
+	constexpr static int SpriteStandard     = 1;
+	constexpr static int SpriteRaceFinish   = 38;
 
-	DWORD_PTR a = (DWORD_PTR)m_hModule + ADDRESS_BLIP;
+	DWORD_PTR a = (DWORD_PTR) m_hModule + ADDRESS_BLIP;
 	for (size_t i = 2000; i > 1; i--)
 	{
 		DWORD64 n;
-		DWORD dwColor,dwIcon;
-		g_pMemMan->readMem<DWORD64>((DWORD_PTR)a + (i * 8), &n);
-		g_pMemMan->readMem<DWORD>((DWORD_PTR)n + 0x40, &dwIcon);
-		g_pMemMan->readMem<DWORD>((DWORD_PTR)n + 0x48, &dwColor);
+		DWORD   dwColor, dwIcon;
+		g_pMemMan->readMem <DWORD64>((DWORD_PTR) a + (i * 8), &n);
+		g_pMemMan->readMem <DWORD>((DWORD_PTR) n + 0x40, &dwIcon);
+		g_pMemMan->readMem <DWORD>((DWORD_PTR) n + 0x48, &dwColor);
 		if (n > 0 && dwColor == ColorYellowMission || dwIcon == SpriteStandard
 			&& dwColor == ColorYellow || dwIcon == SpriteStandard
 			&& dwColor == ColorWhite || dwIcon == SpriteRaceFinish
 			&& dwColor == ColorGreen || dwIcon == SpriteStandard
 			&& dwColor == SpriteCrateDrop)
 		{
-			g_pMemMan->readMem<v3>((DWORD_PTR)n + 0x10, &m_v3Objective);
+			g_pMemMan->readMem <v3>((DWORD_PTR) n + 0x10, &m_v3Objective);
 			break;
 		}
 	}
@@ -286,7 +273,6 @@ bool hack::teleportWaypoint()
 	teleport(dest);
 	return true;
 }
-
 
 bool hack::teleportObjective()
 {
@@ -342,15 +328,15 @@ void hack::killNpc()
 		return;
 	for (int i = 0; i < 3; i++)
 	{
-		DWORD_PTR	npc;
-		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpAttackerBase + (i * OFFSET_ATTACKER_DISTANCE), &npc);
+		DWORD_PTR npc;
+		g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpAttackerBase + (i * OFFSET_ATTACKER_DISTANCE), &npc);
 		if (npc == m_dwpPlayerBase || npc == 0)
 			continue;
-		float		health;
-		g_pMemMan->readMem<float>((DWORD_PTR)npc + OFFSET_ENTITY_HEALTH, &health);
+		float health;
+		g_pMemMan->readMem <float>((DWORD_PTR) npc + OFFSET_ENTITY_HEALTH, &health);
 		float v = 0.f;
 		if (health > v)
-			g_pMemMan->writeMem<float>((DWORD_PTR)npc + OFFSET_ENTITY_HEALTH, &v);
+			g_pMemMan->writeMem <float>((DWORD_PTR) npc + OFFSET_ENTITY_HEALTH, &v);
 	}
 	return;
 }
@@ -376,19 +362,19 @@ void hack::fillAllAmmo()
 	for (size_t i = 0; i < 0x400; i++)
 	{
 		DWORD_PTR dwpWeapon, dwpAmmoInfo, dwpAmmoPtr1, dwpAmmoPtr2;
-		DWORD dwCurAmmo, dwMaxAmmo;
-		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)m_dwpWeaponBase + i, &dwpWeapon);
-		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)dwpWeapon + OFFSET_WEAPON_AMMOINFO, &dwpAmmoInfo);
+		DWORD     dwCurAmmo, dwMaxAmmo;
+		g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) m_dwpWeaponBase + i, &dwpWeapon);
+		g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) dwpWeapon + OFFSET_WEAPON_AMMOINFO, &dwpAmmoInfo);
 
-		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)dwpAmmoInfo + OFFSET_WEAPON_AMMOINFO_CUR_1, &dwpAmmoPtr1);
-		g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)dwpAmmoPtr1 + OFFSET_WEAPON_AMMOINFO_CUR_2, &dwpAmmoPtr2);
-		g_pMemMan->readMem<DWORD>((DWORD_PTR)dwpAmmoPtr2 + OFFSET_WEAPON_AMMOINFO_CURAMMO, &dwCurAmmo);
+		g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) dwpAmmoInfo + OFFSET_WEAPON_AMMOINFO_CUR_1, &dwpAmmoPtr1);
+		g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) dwpAmmoPtr1 + OFFSET_WEAPON_AMMOINFO_CUR_2, &dwpAmmoPtr2);
+		g_pMemMan->readMem <DWORD>((DWORD_PTR) dwpAmmoPtr2 + OFFSET_WEAPON_AMMOINFO_CURAMMO, &dwCurAmmo);
 		if (dwCurAmmo >= 0 && dwCurAmmo <= 9999)
 		{
-			g_pMemMan->readMem<DWORD>((DWORD_PTR)dwpAmmoInfo + OFFSET_WEAPON_AMMOINFO_MAX, &dwMaxAmmo);
+			g_pMemMan->readMem <DWORD>((DWORD_PTR) dwpAmmoInfo + OFFSET_WEAPON_AMMOINFO_MAX, &dwMaxAmmo);
 			if (dwMaxAmmo >= 20 && dwMaxAmmo <= 9999 && dwCurAmmo < dwMaxAmmo)
 			{
-				g_pMemMan->writeMem<DWORD>((DWORD_PTR)dwpAmmoPtr2 + OFFSET_WEAPON_AMMOINFO_CURAMMO, &dwMaxAmmo);
+				g_pMemMan->writeMem <DWORD>((DWORD_PTR) dwpAmmoPtr2 + OFFSET_WEAPON_AMMOINFO_CURAMMO, &dwMaxAmmo);
 			}
 		}
 	}
@@ -441,35 +427,35 @@ void hack::casinoStatBitSet1(int type)
 	dStatPushBack(joaat_with_mp_index("H3OPT_BITSET1"), 0);
 	switch (type)
 	{
-	case 0:
-		dStatPushBack(joaat_with_mp_index("H3OPT_APPROACH"), 1);
-		break;
-	case 1:
-		dStatPushBack(joaat_with_mp_index("H3OPT_APPROACH"), 2);
-		break;
-	case 2:
-		dStatPushBack(joaat_with_mp_index("H3OPT_APPROACH"), 3);
-		break;
-	case 3:
-		dStatPushBack(joaat_with_mp_index("H3OPT_TARGET"), 0);
-		break;
-	case 4:
-		dStatPushBack(joaat_with_mp_index("H3OPT_TARGET"), 1);
-		break;
-	case 5:
-		dStatPushBack(joaat_with_mp_index("H3OPT_TARGET"), 2);
-		break;
-	case 6:
-		dStatPushBack(joaat_with_mp_index("H3OPT_TARGET"), 3);
-		break;
-	case 7:
-		dStatPushBack(joaat_with_mp_index("H3OPT_ACCESSPOINTS"), -1);
-		break;
-	case 8:
-		dStatPushBack(joaat_with_mp_index("H3OPT_POI"), -1);
-		break;
-	default:
-		break;
+		case 0:
+			dStatPushBack(joaat_with_mp_index("H3OPT_APPROACH"), 1);
+			break;
+		case 1:
+			dStatPushBack(joaat_with_mp_index("H3OPT_APPROACH"), 2);
+			break;
+		case 2:
+			dStatPushBack(joaat_with_mp_index("H3OPT_APPROACH"), 3);
+			break;
+		case 3:
+			dStatPushBack(joaat_with_mp_index("H3OPT_TARGET"), 0);
+			break;
+		case 4:
+			dStatPushBack(joaat_with_mp_index("H3OPT_TARGET"), 1);
+			break;
+		case 5:
+			dStatPushBack(joaat_with_mp_index("H3OPT_TARGET"), 2);
+			break;
+		case 6:
+			dStatPushBack(joaat_with_mp_index("H3OPT_TARGET"), 3);
+			break;
+		case 7:
+			dStatPushBack(joaat_with_mp_index("H3OPT_ACCESSPOINTS"), -1);
+			break;
+		case 8:
+			dStatPushBack(joaat_with_mp_index("H3OPT_POI"), -1);
+			break;
+		default:
+			break;
 	}
 	dStatPushBack(joaat_with_mp_index("H3OPT_BITSET1"), -1);
 }
@@ -479,48 +465,48 @@ void hack::casinoStatBitSet2(int type)
 	dStatPushBack(joaat_with_mp_index("H3OPT_BITSET0"), 0);
 	switch (type)
 	{
-	case 0:
-		dStatPushBack(joaat_with_mp_index("H3OPT_DISRUPTSHIP"), 3);
-		break;
-	case 1:
-		dStatPushBack(joaat_with_mp_index("H3OPT_KEYLEVELS"), 2);
-		break;
-	case 2:
-		dStatPushBack(joaat_with_mp_index("H3OPT_CREWWEAP"), 0);
-		break;
-	case 3:
-		dStatPushBack(joaat_with_mp_index("H3OPT_CREWDRIVER"), 0);
-		break;
-	case 4:
-		dStatPushBack(joaat_with_mp_index("H3OPT_CREWHACKER"), 5);
-		break;
-	case 5:
-		dStatPushBack(joaat_with_mp_index("H3OPT_VEHS"), 0);
-		break;
-	case 6:
-		dStatPushBack(joaat_with_mp_index("H3OPT_VEHS"), 1);
-		break;
-	case 7:
-		dStatPushBack(joaat_with_mp_index("H3OPT_VEHS"), 2);
-		break;
-	case 8:
-		dStatPushBack(joaat_with_mp_index("H3OPT_VEHS"), 3);
-		break;
-	case 9:
-		dStatPushBack(joaat_with_mp_index("H3OPT_WEAPS"), 0);
-		break;
-	case 10:
-		dStatPushBack(joaat_with_mp_index("H3OPT_WEAPS"), 1);
-		break;
-	default:
-		dStatPushBack(joaat_with_mp_index("H3OPT_DISRUPTSHIP"), 3);
-		dStatPushBack(joaat_with_mp_index("H3OPT_KEYLEVELS"), 2);
-		dStatPushBack(joaat_with_mp_index("H3OPT_CREWWEAP"), 0);
-		dStatPushBack(joaat_with_mp_index("H3OPT_CREWDRIVER"), 0);
-		dStatPushBack(joaat_with_mp_index("H3OPT_CREWHACKER"), 5);
-		dStatPushBack(joaat_with_mp_index("H3OPT_VEHS"), 3);
-		dStatPushBack(joaat_with_mp_index("H3OPT_WEAPS"), 0);
-		break;
+		case 0:
+			dStatPushBack(joaat_with_mp_index("H3OPT_DISRUPTSHIP"), 3);
+			break;
+		case 1:
+			dStatPushBack(joaat_with_mp_index("H3OPT_KEYLEVELS"), 2);
+			break;
+		case 2:
+			dStatPushBack(joaat_with_mp_index("H3OPT_CREWWEAP"), 0);
+			break;
+		case 3:
+			dStatPushBack(joaat_with_mp_index("H3OPT_CREWDRIVER"), 0);
+			break;
+		case 4:
+			dStatPushBack(joaat_with_mp_index("H3OPT_CREWHACKER"), 5);
+			break;
+		case 5:
+			dStatPushBack(joaat_with_mp_index("H3OPT_VEHS"), 0);
+			break;
+		case 6:
+			dStatPushBack(joaat_with_mp_index("H3OPT_VEHS"), 1);
+			break;
+		case 7:
+			dStatPushBack(joaat_with_mp_index("H3OPT_VEHS"), 2);
+			break;
+		case 8:
+			dStatPushBack(joaat_with_mp_index("H3OPT_VEHS"), 3);
+			break;
+		case 9:
+			dStatPushBack(joaat_with_mp_index("H3OPT_WEAPS"), 0);
+			break;
+		case 10:
+			dStatPushBack(joaat_with_mp_index("H3OPT_WEAPS"), 1);
+			break;
+		default:
+			dStatPushBack(joaat_with_mp_index("H3OPT_DISRUPTSHIP"), 3);
+			dStatPushBack(joaat_with_mp_index("H3OPT_KEYLEVELS"), 2);
+			dStatPushBack(joaat_with_mp_index("H3OPT_CREWWEAP"), 0);
+			dStatPushBack(joaat_with_mp_index("H3OPT_CREWDRIVER"), 0);
+			dStatPushBack(joaat_with_mp_index("H3OPT_CREWHACKER"), 5);
+			dStatPushBack(joaat_with_mp_index("H3OPT_VEHS"), 3);
+			dStatPushBack(joaat_with_mp_index("H3OPT_WEAPS"), 0);
+			break;
 	}
 	dStatPushBack(joaat_with_mp_index("H3OPT_BITSET0"), -1);
 }
@@ -535,9 +521,9 @@ void hack::casinoHeistCut(feat* feature, int playerIndex)
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
-	if (getCasinoHeistCut(playerIndex) != (int)fValue)
-		setCasinoHeistCut(playerIndex, (int)fValue);
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
+	if (getCasinoHeistCut(playerIndex) != (int) fValue)
+		setCasinoHeistCut(playerIndex, (int) fValue);
 
 	return;
 }
@@ -551,59 +537,59 @@ void hack::pericoStatBitSet1(int type)
 {
 	switch (type)
 	{
-	case 0:
-		dStatPushBack(joaat_with_mp_index("H4LOOT_CASH_I_SCOPED"), -1);
-		dStatPushBack(joaat_with_mp_index("H4LOOT_CASH_C_SCOPED"), -1);
-		dStatPushBack(joaat_with_mp_index("H4LOOT_CASH_V_SCOPED"), -1);
-		break;
-	case 1:
-		dStatPushBack(joaat_with_mp_index("H4LOOT_GOLD_I_SCOPED"), -1);
-		dStatPushBack(joaat_with_mp_index("H4LOOT_GOLD_C_SCOPED"), -1);
-		dStatPushBack(joaat_with_mp_index("H4LOOT_GOLD_V_SCOPED"), -1);
-		break;
-	case 2:
-		dStatPushBack(joaat_with_mp_index("H4LOOT_WEED_I_SCOPED"), -1);
-		dStatPushBack(joaat_with_mp_index("H4LOOT_WEED_C_SCOPED"), -1);
-		dStatPushBack(joaat_with_mp_index("H4LOOT_WEED_V_SCOPED"), -1);
-		break;
-	case 3:
-		dStatPushBack(joaat_with_mp_index("H4LOOT_COKE_I_SCOPED"), -1);
-		dStatPushBack(joaat_with_mp_index("H4LOOT_COKE_C_SCOPED"), -1);
-		dStatPushBack(joaat_with_mp_index("H4LOOT_COKE_V_SCOPED"), -1);
-		break;
-	case 4:
-		dStatPushBack(joaat_with_mp_index("H4LOOT_PAINT_SCOPED"), -1);
-		break;
-	case 5:
-		dStatPushBack(joaat_with_mp_index("H4CNF_BS_GEN"), -1);
-		break;
-	case 6:
-		dStatPushBack(joaat_with_mp_index("H4CNF_BS_ENTR"), 63);
-		break;
-	case 7:
-		dStatPushBack(joaat_with_mp_index("H4CNF_BS_ABIL"), 63);
-		break;
-	case 8:
-		dStatPushBack(joaat_with_mp_index("H4CNF_APPROACH"), -1);
-		break;
-	case 9:
-		dStatPushBack(joaat_with_mp_index("H4CNF_TARGET"), 0);
-		break;
-	case 10:
-		dStatPushBack(joaat_with_mp_index("H4CNF_TARGET"), 1);
-		break;
-	case 11:
-		dStatPushBack(joaat_with_mp_index("H4CNF_TARGET"), 2);
-		break;
-	case 12:
-		dStatPushBack(joaat_with_mp_index("H4CNF_TARGET"), 3);
-		break;
-	case 13:
-		dStatPushBack(joaat_with_mp_index("H4CNF_TARGET"), 4);
-		break;
-	case 14:
-		dStatPushBack(joaat_with_mp_index("H4CNF_TARGET"), 5);
-		break;
+		case 0:
+			dStatPushBack(joaat_with_mp_index("H4LOOT_CASH_I_SCOPED"), -1);
+			dStatPushBack(joaat_with_mp_index("H4LOOT_CASH_C_SCOPED"), -1);
+			dStatPushBack(joaat_with_mp_index("H4LOOT_CASH_V_SCOPED"), -1);
+			break;
+		case 1:
+			dStatPushBack(joaat_with_mp_index("H4LOOT_GOLD_I_SCOPED"), -1);
+			dStatPushBack(joaat_with_mp_index("H4LOOT_GOLD_C_SCOPED"), -1);
+			dStatPushBack(joaat_with_mp_index("H4LOOT_GOLD_V_SCOPED"), -1);
+			break;
+		case 2:
+			dStatPushBack(joaat_with_mp_index("H4LOOT_WEED_I_SCOPED"), -1);
+			dStatPushBack(joaat_with_mp_index("H4LOOT_WEED_C_SCOPED"), -1);
+			dStatPushBack(joaat_with_mp_index("H4LOOT_WEED_V_SCOPED"), -1);
+			break;
+		case 3:
+			dStatPushBack(joaat_with_mp_index("H4LOOT_COKE_I_SCOPED"), -1);
+			dStatPushBack(joaat_with_mp_index("H4LOOT_COKE_C_SCOPED"), -1);
+			dStatPushBack(joaat_with_mp_index("H4LOOT_COKE_V_SCOPED"), -1);
+			break;
+		case 4:
+			dStatPushBack(joaat_with_mp_index("H4LOOT_PAINT_SCOPED"), -1);
+			break;
+		case 5:
+			dStatPushBack(joaat_with_mp_index("H4CNF_BS_GEN"), -1);
+			break;
+		case 6:
+			dStatPushBack(joaat_with_mp_index("H4CNF_BS_ENTR"), 63);
+			break;
+		case 7:
+			dStatPushBack(joaat_with_mp_index("H4CNF_BS_ABIL"), 63);
+			break;
+		case 8:
+			dStatPushBack(joaat_with_mp_index("H4CNF_APPROACH"), -1);
+			break;
+		case 9:
+			dStatPushBack(joaat_with_mp_index("H4CNF_TARGET"), 0);
+			break;
+		case 10:
+			dStatPushBack(joaat_with_mp_index("H4CNF_TARGET"), 1);
+			break;
+		case 11:
+			dStatPushBack(joaat_with_mp_index("H4CNF_TARGET"), 2);
+			break;
+		case 12:
+			dStatPushBack(joaat_with_mp_index("H4CNF_TARGET"), 3);
+			break;
+		case 13:
+			dStatPushBack(joaat_with_mp_index("H4CNF_TARGET"), 4);
+			break;
+		case 14:
+			dStatPushBack(joaat_with_mp_index("H4CNF_TARGET"), 5);
+			break;
 	}
 }
 
@@ -611,39 +597,39 @@ void hack::pericoStatBitSet2(int type)
 {
 	switch (type)
 	{
-	case 1:
-		dStatPushBack(joaat_with_mp_index("H4CNF_WEAPONS"), 1);
-		break;
-	case 2:
-		dStatPushBack(joaat_with_mp_index("H4CNF_WEAPONS"), 2);
-		break;
-	case 3:
-		dStatPushBack(joaat_with_mp_index("H4CNF_WEAPONS"), 3);
-		break;
-	case 4:
-		dStatPushBack(joaat_with_mp_index("H4CNF_WEAPONS"), 4);
-		break;
-	case 5:
-		dStatPushBack(joaat_with_mp_index("H4CNF_WEAPONS"), 5);
-		break;
-	case 6:
-		dStatPushBack(joaat_with_mp_index("H4CNF_WEP_DISRP"), 3);
-		break;
-	case 7:
-		dStatPushBack(joaat_with_mp_index("H4CNF_ARM_DISRP"), 3);
-		break;
-	case 8:
-		dStatPushBack(joaat_with_mp_index("H4CNF_HEL_DISRP"), 3);
-		break;
-	case 9:
-		dStatPushBack(joaat_with_mp_index("H4CNF_GRAPPEL"), -1);
-		break;
-	case 10:
-		dStatPushBack(joaat_with_mp_index("H4CNF_UNIFORM"), -1);
-		break;
-	case 11:
-		dStatPushBack(joaat_with_mp_index("H4CNF_BOLTCUT"), -1);
-		break;
+		case 1:
+			dStatPushBack(joaat_with_mp_index("H4CNF_WEAPONS"), 1);
+			break;
+		case 2:
+			dStatPushBack(joaat_with_mp_index("H4CNF_WEAPONS"), 2);
+			break;
+		case 3:
+			dStatPushBack(joaat_with_mp_index("H4CNF_WEAPONS"), 3);
+			break;
+		case 4:
+			dStatPushBack(joaat_with_mp_index("H4CNF_WEAPONS"), 4);
+			break;
+		case 5:
+			dStatPushBack(joaat_with_mp_index("H4CNF_WEAPONS"), 5);
+			break;
+		case 6:
+			dStatPushBack(joaat_with_mp_index("H4CNF_WEP_DISRP"), 3);
+			break;
+		case 7:
+			dStatPushBack(joaat_with_mp_index("H4CNF_ARM_DISRP"), 3);
+			break;
+		case 8:
+			dStatPushBack(joaat_with_mp_index("H4CNF_HEL_DISRP"), 3);
+			break;
+		case 9:
+			dStatPushBack(joaat_with_mp_index("H4CNF_GRAPPEL"), -1);
+			break;
+		case 10:
+			dStatPushBack(joaat_with_mp_index("H4CNF_UNIFORM"), -1);
+			break;
+		case 11:
+			dStatPushBack(joaat_with_mp_index("H4CNF_BOLTCUT"), -1);
+			break;
 	}
 }
 
@@ -653,7 +639,7 @@ void hack::unlockHeistCars()
 	dStatPushBack(joaat_with_mp_index("CHAR_FM_VEHICLE_2_UNLCK"), -1);
 	for (size_t i = 1; i <= 7; i++)
 	{
-		dStatPushBack(joaat_with_mp_index("CHAR_FM_CARMOD_"+ std::to_string(i) +"_UNLCK"), -1);
+		dStatPushBack(joaat_with_mp_index("CHAR_FM_CARMOD_" + std::to_string(i) + "_UNLCK"), -1);
 	}
 }
 
@@ -1043,31 +1029,31 @@ void hack::unlockClothes()
 
 void hack::intoPV()
 {
-	if (scriptGlobal(GLOBAL_MERRYWEATHER).at(298).as<int>() != -1)
-		scriptGlobal(2409299).at(8).as<int>() = 1;
+	if (scriptGlobal(GLOBAL_MERRYWEATHER).at(298).as <int>() != -1)
+		scriptGlobal(2409299).at(8).as <int>() = 1;
 }
 
 void hack::loadSession(int id)
 {
-	if (id  == -1)
+	if (id == -1)
 	{
-		scriptGlobal(1312443).at(2).as<int>() = id;
-		scriptGlobal(1312443).as<int>() = 1;
+		scriptGlobal(1312443).at(2).as <int>() = id;
+		scriptGlobal(1312443).as <int>()       = 1;
 		Sleep(200);
-		scriptGlobal(1312443).as<int>() = 0;
+		scriptGlobal(1312443).as <int>() = 0;
 	}
 	else
 	{
-		scriptGlobal(1312860).as<int>() = id;
-		scriptGlobal(1312443).as<int>() = 1;
+		scriptGlobal(1312860).as <int>() = id;
+		scriptGlobal(1312443).as <int>() = 1;
 		Sleep(200);
-		scriptGlobal(1312443).as<int>() = 0;
+		scriptGlobal(1312443).as <int>() = 0;
 	}
 }
 
 void hack::setRank(int rank)
 {
-	dStatPushBack(joaat_with_mp_index("CHAR_SET_RP_GIFT_ADMIN"), scriptGlobal(292402).at(rank + 1).as<int>().value());
+	dStatPushBack(joaat_with_mp_index("CHAR_SET_RP_GIFT_ADMIN"), scriptGlobal(292402).at(rank + 1).as <int>().value());
 }
 
 void hack::forwardTeleport(float dist)
@@ -1076,7 +1062,7 @@ void hack::forwardTeleport(float dist)
 	v3 v3Pos = m_player.m_v3Pos;
 	m_player.getCos();
 	m_player.getSin();
-	float fAngle = m_player.m_fCos;
+	float fAngle  = m_player.m_fCos;
 	float fAngle2 = m_player.m_fSin;
 	v3Pos.x += dist * fAngle2;
 	v3Pos.y += dist * fAngle;
@@ -1085,44 +1071,44 @@ void hack::forwardTeleport(float dist)
 
 void hack::spawnVehicle(int vehTypeIndex, int vehIndex)
 {
-	scriptGlobal(4270934).as<bool*>() = true;
+	scriptGlobal(4270934).as <bool*>() = true;
 
 	m_player.getPos();
 	v3 v3Pos = m_player.m_v3Pos;
 	m_player.getCos();
 	m_player.getSin();
-	float fAngle = m_player.m_fCos;
+	float fAngle  = m_player.m_fCos;
 	float fAngle2 = m_player.m_fSin;
 	v3Pos.x += 6 * fAngle2;
 	v3Pos.y += 6 * fAngle;
 
 	auto vehicle = vehiclePreview[vehTypeIndex].second[vehIndex];
 
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(66).as<unsigned int>() = joaat(vehicle.VCode);
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(94).as<int>() = 2;
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(95).as<int>() = 14;
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(5).as<BYTE>() = -1;
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(6).as<BYTE>() = -1;
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(7).at(0).as<float>() = v3Pos.x;
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(7).at(1).as<float>() = v3Pos.y;
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(7).at(2).as<float>() = -255.0f;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(66).as <unsigned int>() = joaat(vehicle.VCode);
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(94).as <int>()          = 2;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(95).as <int>()          = 14;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(5).as <BYTE>()          = -1;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(6).as <BYTE>()          = -1;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(7).at(0).as <float>()          = v3Pos.x;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(7).at(1).as <float>()          = v3Pos.y;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(7).at(2).as <float>()          = -255.0f;
 
-	int* pTemp = (int*)malloc(sizeof(vehicle.VMod));
+	int* pTemp = (int*) malloc(sizeof(vehicle.VMod));
 	memcpy(pTemp, &vehicle.VMod, sizeof(vehicle.VMod));
 
 	for (int i = 0; i < sizeof(vehicle.VMod) / sizeof(int); i++)
 	{
 		if (i < 17)
 		{
-			scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(10 + i).as<BYTE>() = pTemp[i];
+			scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(10 + i).as <BYTE>() = pTemp[i];
 		}
 		else if (pTemp[42] > 0 && i == 42)
 		{
-			scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(10 + 6 + i).as<BYTE>() = rand() % pTemp[i] + 1;
+			scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(10 + 6 + i).as <BYTE>() = rand() % pTemp[i] + 1;
 		}
 		else if (i > 22)
 		{
-			scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(10 + 6 + i).as<BYTE>() = pTemp[i];
+			scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(10 + 6 + i).as <BYTE>() = pTemp[i];
 		}
 		else
 		{
@@ -1130,14 +1116,14 @@ void hack::spawnVehicle(int vehTypeIndex, int vehIndex)
 		}
 	}
 	free(pTemp);
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(28).as<BYTE>() = 1;
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(30).as<BYTE>() = 1;
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(32).as<BYTE>() = 1;
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(65).as<BYTE>() = 1;
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(77).as<int>() = 0xF0400200;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(28).as <BYTE>() = 1;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(30).as <BYTE>() = 1;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(32).as <BYTE>() = 1;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(65).as <BYTE>() = 1;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(27).at(77).as <int>()  = 0xF0400200;
 
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(5).as<int>() = 1;
-	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(2).as<int>() = 1;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(5).as <int>() = 1;
+	scriptGlobal(GLOBAL_CREATE_VEHICLE).at(2).as <int>() = 1;
 }
 
 void hack::selfDropWeapon(int weaponTypeIndex, int weaponIndex)
@@ -1152,24 +1138,25 @@ void hack::selfDropMoney(feat* feature)
 	if (!m_bSelfDropInit)
 	{
 		m_bSelfDropInit = true;
-		std::thread t([=] {
-			while (!g_bKillSwitch)
+		std::thread t
+			([=]
 			{
-				if (feature->m_bOn)
+				while (!g_bKillSwitch)
 				{
-					if (scriptGlobal(GLOBAL_TUNEABLES).at(167).as<int>() != 10000)
-						scriptGlobal(GLOBAL_TUNEABLES).at(167).as<int>() = 10000;
+					if (feature->m_bOn)
+					{
+						if (scriptGlobal(GLOBAL_TUNEABLES).at(167).as <int>() != 10000)
+							scriptGlobal(GLOBAL_TUNEABLES).at(167).as <int>() = 10000;
 
-					m_player.getPos();
-					createAmbientPickup(joaat("PICKUP_MONEY_VARIABLE"), m_player.m_v3Pos.x, m_player.m_v3Pos.y, m_player.m_v3Pos.z + 5, 10000, joaat("p_poly_bag_01_s"));
+						m_player.getPos();
+						createAmbientPickup(joaat("PICKUP_MONEY_VARIABLE"), m_player.m_v3Pos.x, m_player.m_v3Pos.y, m_player.m_v3Pos.z + 5, 10000, joaat("p_poly_bag_01_s"));
+					}
+					Sleep(300);
 				}
-				Sleep(300);
-			}
-		});
+			});
 		t.detach();
 	}
 }
-
 
 void hack::dStatPushBack(unsigned int hash, int value)
 {
@@ -1178,37 +1165,37 @@ void hack::dStatPushBack(unsigned int hash, int value)
 
 void hack::callMerryweather(std::ptrdiff_t index)
 {
-	scriptGlobal(GLOBAL_MERRYWEATHER).at(index).as<int>() = 1;
+	scriptGlobal(GLOBAL_MERRYWEATHER).at(index).as <int>() = 1;
 }
 
 int hack::getPlayerId()
 {
-	return scriptGlobal(GLOBAL_LESTER_TIMER).as<int>().value();
+	return scriptGlobal(GLOBAL_LESTER_TIMER).as <int>().value();
 }
 
 int hack::getNetworkTime()
 {
-	return scriptGlobal(1312603).at(11).as<int>().value();
+	return scriptGlobal(1312603).at(11).as <int>().value();
 }
 
 void hack::setCasinoHeistCut(int playerIndex, int cut)
 {
-	scriptGlobal(1707876).at(getPlayerId(), 68).at(12).at(1).at(playerIndex).as<int>() = cut;
+	scriptGlobal(1707876).at(getPlayerId(), 68).at(12).at(1).at(playerIndex).as <int>() = cut;
 }
 
 int hack::getCasinoHeistCut(int playerIndex)
 {
-	return scriptGlobal(1707876).at(getPlayerId(), 68).at(12).at(1).at(playerIndex).as<int>().value();
+	return scriptGlobal(1707876).at(getPlayerId(), 68).at(12).at(1).at(playerIndex).as <int>().value();
 }
 
 void hack::createAmbientPickup(unsigned int pickupHash, float posX, float posY, float posZ, int value, unsigned int modelHash)
 {
-	scriptGlobal(GLOBAL_CREATE_PICKUP).at(1).as<int>() = value;
-	scriptGlobal(GLOBAL_CREATE_PICKUP).at(3).as<float>() = posX;
-	scriptGlobal(GLOBAL_CREATE_PICKUP).at(4).as<float>() = posY;
-	scriptGlobal(GLOBAL_CREATE_PICKUP).at(5).as<float>() = posZ;
-	scriptGlobal(4265506).at(scriptGlobal(GLOBAL_CREATE_PICKUP).as<int>().value(), 85).at(66).at(2).as<int>() = 2;
-	scriptGlobal(2518288).as<int>() = 1;
+	scriptGlobal(GLOBAL_CREATE_PICKUP).at(1).as <int>()                                                         = value;
+	scriptGlobal(GLOBAL_CREATE_PICKUP).at(3).as <float>()                                                       = posX;
+	scriptGlobal(GLOBAL_CREATE_PICKUP).at(4).as <float>()                                                       = posY;
+	scriptGlobal(GLOBAL_CREATE_PICKUP).at(5).as <float>()                                                       = posZ;
+	scriptGlobal(4265506).at(scriptGlobal(GLOBAL_CREATE_PICKUP).as <int>().value(), 85).at(66).at(2).as <int>() = 2;
+	scriptGlobal(2518288).as <int>()                                                                            = 1;
 
 	m_unkModel.getModelHash();
 	if (m_unkModel.m_dwModelHash != modelHash)
@@ -1218,15 +1205,15 @@ void hack::createAmbientPickup(unsigned int pickupHash, float posX, float posY, 
 	m_replayInterface.getCurPedNum();
 	for (size_t i = 0; i < m_replayInterface.dw_curPickUpNum; i++)
 	{
-		DWORD_PTR dwpPickup, dwpPickupCur;
+		DWORD_PTR    dwpPickup,    dwpPickupCur;
 		unsigned int dwPickupHash, dwModelHash;
-		g_pMemMan->readMem<DWORD_PTR>(m_replayInterface.m_dwpPickUpList + i * 0x10, &dwpPickup);
-		g_pMemMan->readMem<DWORD_PTR>(dwpPickup + 0x20, &dwpPickupCur);
-		g_pMemMan->readMem<unsigned int>(dwpPickupCur + 0x18, &dwModelHash);
-		g_pMemMan->readMem<unsigned int>(dwpPickup + OFFSET_REPLAY_PICKUP_HASH, &dwPickupHash);
+		g_pMemMan->readMem <DWORD_PTR>(m_replayInterface.m_dwpPickUpList + i * 0x10, &dwpPickup);
+		g_pMemMan->readMem <DWORD_PTR>(dwpPickup + 0x20, &dwpPickupCur);
+		g_pMemMan->readMem <unsigned int>(dwpPickupCur + 0x18, &dwModelHash);
+		g_pMemMan->readMem <unsigned int>(dwpPickup + OFFSET_REPLAY_PICKUP_HASH, &dwPickupHash);
 		if (dwPickupHash != pickupHash && dwModelHash == modelHash)
 		{
-			g_pMemMan->writeMem<unsigned int>(dwpPickup + OFFSET_REPLAY_PICKUP_HASH, pickupHash);
+			g_pMemMan->writeMem <unsigned int>(dwpPickup + OFFSET_REPLAY_PICKUP_HASH, pickupHash);
 			break;
 		}
 	}
@@ -1239,13 +1226,13 @@ void hack::blockScriptEvents(feat* feature, std::ptrdiff_t index)
 	{
 		if (!feature->m_bRestored)
 		{
-			scriptGlobal(GLOBAL_BLOCK_SCRIPT_EVENTS).at(index).as<int>() = 0;
-			feature->m_bRestored = true;
+			scriptGlobal(GLOBAL_BLOCK_SCRIPT_EVENTS).at(index).as <int>() = 0;
+			feature->m_bRestored                                          = true;
 		}
 		return;
 	}
-	if (scriptGlobal(GLOBAL_BLOCK_SCRIPT_EVENTS).at(index).as<int>() != 1)
-		scriptGlobal(GLOBAL_BLOCK_SCRIPT_EVENTS).at(index).as<int>() = 1;
+	if (scriptGlobal(GLOBAL_BLOCK_SCRIPT_EVENTS).at(index).as <int>() != 1)
+		scriptGlobal(GLOBAL_BLOCK_SCRIPT_EVENTS).at(index).as <int>() = 1;
 
 	return;
 }
@@ -1260,33 +1247,35 @@ void hack::consumeStatQueue()
 	if (!m_bInit)
 	{
 		m_bInit = true;
-		std::thread tConsumeStatQueue([=] {
-			while (!g_bKillSwitch)
+		std::thread tConsumeStatQueue
+			([=]
 			{
-				if (!m_dStat.empty())
+				while (!g_bKillSwitch)
 				{
-					g_pD3D9Render->m_bMBShowing = true;
-					g_pD3D9Render->m_sTitle = L"正在处理队列";
-					g_pD3D9Render->m_sDetail = L"剩余" + std::to_wstring(m_dStat.size()) + L"个待处理";
+					if (!m_dStat.empty())
+					{
+						g_pD3D9Render->m_bMBShowing = true;
+						g_pD3D9Render->m_sTitle     = L"正在处理队列";
+						g_pD3D9Render->m_sDetail    = L"剩余" + std::to_wstring(m_dStat.size()) + L"个待处理";
 
-					unsigned int resotreHash = scriptGlobal(1390343).at(4).as<unsigned int>().value();
-					int resotreValue = scriptGlobal(939452).at(5526).as<int>().value();
+						unsigned int resotreHash  = scriptGlobal(1390343).at(4).as <unsigned int>().value();
+						int          resotreValue = scriptGlobal(939452).at(5526).as <int>().value();
 
-					scriptGlobal(1390343).at(4).as<unsigned int>() = m_dStat.front().first;
-					scriptGlobal(939452).at(5526).as<int>() = m_dStat.front().second;
-					scriptGlobal(1379108).at(1139).as<int>() = -1;
-					Sleep(1000);
-					scriptGlobal(1390343).at(4).as<unsigned int>() = resotreHash;
-					scriptGlobal(939452).at(5526).as<int>() = resotreValue;
-					m_dStat.pop_front();
+						scriptGlobal(1390343).at(4).as <unsigned int>() = m_dStat.front().first;
+						scriptGlobal(939452).at(5526).as <int>()        = m_dStat.front().second;
+						scriptGlobal(1379108).at(1139).as <int>()       = -1;
+						Sleep(1000);
+						scriptGlobal(1390343).at(4).as <unsigned int>() = resotreHash;
+						scriptGlobal(939452).at(5526).as <int>()        = resotreValue;
+						m_dStat.pop_front();
+					}
+					else if (g_pD3D9Render->m_bMBShowing)
+					{
+						g_pD3D9Render->m_bMBShowing = false;
+					}
+					Sleep(500);
 				}
-				else if (g_pD3D9Render->m_bMBShowing)
-				{
-					g_pD3D9Render->m_bMBShowing = false;
-				}
-				Sleep(500);
-			}
-		});
+			});
 		tConsumeStatQueue.detach();
 	}
 }
@@ -1328,7 +1317,7 @@ void hack::tpHostilityNpc()
 			continue;
 
 		DWORD dwHostility;
-		g_pMemMan->readMem<DWORD>(m_replayInterface.g_pPedList[i]->m_dwpBase + OFFSET_REPLAY_PED_HOSTILITY, &dwHostility);
+		g_pMemMan->readMem <DWORD>(m_replayInterface.g_pPedList[i]->m_dwpBase + OFFSET_REPLAY_PED_HOSTILITY, &dwHostility);
 		if (dwHostility > 1)
 		{
 			m_player.getPos();
@@ -1346,8 +1335,8 @@ void hack::killHostilityNpc()
 			continue;
 
 		DWORD dwHostility;
-		g_pMemMan->readMem<DWORD>(m_replayInterface.g_pPedList[i]->m_dwpBase + OFFSET_REPLAY_PED_HOSTILITY, &dwHostility);
-		if (dwHostility > 1) 
+		g_pMemMan->readMem <DWORD>(m_replayInterface.g_pPedList[i]->m_dwpBase + OFFSET_REPLAY_PED_HOSTILITY, &dwHostility);
+		if (dwHostility > 1)
 			m_replayInterface.g_pPedList[i]->setHealth(0);
 	}
 }
@@ -1361,17 +1350,17 @@ void hack::killHostilityNpcVeh()
 			continue;
 
 		DWORD dwHostility;
-		g_pMemMan->readMem<DWORD>(m_replayInterface.g_pPedList[i]->m_dwpBase + OFFSET_REPLAY_PED_HOSTILITY, &dwHostility);
+		g_pMemMan->readMem <DWORD>(m_replayInterface.g_pPedList[i]->m_dwpBase + OFFSET_REPLAY_PED_HOSTILITY, &dwHostility);
 		if (dwHostility > 1)
 		{
 			DWORD_PTR dwpVehBase;
-			g_pMemMan->readMem<DWORD_PTR>(m_replayInterface.g_pPedList[i]->m_dwpBase + OFFSET_PLAYER_VEHICLE, &dwpVehBase);
+			g_pMemMan->readMem <DWORD_PTR>(m_replayInterface.g_pPedList[i]->m_dwpBase + OFFSET_PLAYER_VEHICLE, &dwpVehBase);
 			if (dwpVehBase != 0)
 			{
 				vehicle veh;
 				veh.m_dwpBase = dwpVehBase;
-				g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)dwpVehBase + OFFSET_ENTITY_POSBASE, &veh.m_dwpPosBase);
-				g_pMemMan->readMem<DWORD_PTR>((DWORD_PTR)dwpVehBase + OFFSET_VEHICLE_HANDLING, &veh.m_handlingCur.m_dwpHandling);
+				g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) dwpVehBase + OFFSET_ENTITY_POSBASE, &veh.m_dwpPosBase);
+				g_pMemMan->readMem <DWORD_PTR>((DWORD_PTR) dwpVehBase + OFFSET_VEHICLE_HANDLING, &veh.m_handlingCur.m_dwpHandling);
 
 				veh.setHealth(-1);
 			}
@@ -1434,7 +1423,7 @@ void hack::superPunch(feat* feature)
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_player.m_flVehicleDamageMult != fValue)
 		m_player.setVehicleDamageMult(fValue);
 	return;
@@ -1489,7 +1478,7 @@ void hack::quickReload(feat* feature)
 		}
 		return;
 	}
-	float fValue = m_weapon.m_weapDataRestore.m_fReload * static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = m_weapon.m_weapDataRestore.m_fReload * static_cast <featSlider*>(feature)->m_fValue;
 	if (m_weapon.m_weapDataCur.m_fReload != fValue)
 		m_weapon.setReloadSpeed(fValue);
 	if (m_weapon.m_weapDataCur.m_fReloadVeh != 0)
@@ -1509,7 +1498,7 @@ void hack::bulletDamage(feat* feature)
 		}
 		return;
 	}
-	float fValue = m_weapon.m_weapDataRestore.m_fDamage * static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = m_weapon.m_weapDataRestore.m_fDamage * static_cast <featSlider*>(feature)->m_fValue;
 	if (m_weapon.m_weapDataCur.m_fDamage != fValue)
 		m_weapon.setBulletDamage(fValue);
 	return;
@@ -1527,7 +1516,7 @@ void hack::weaponRange(feat* feature)
 		}
 		return;
 	}
-	float fValue = m_weapon.m_weapDataRestore.m_fRange * static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = m_weapon.m_weapDataRestore.m_fRange * static_cast <featSlider*>(feature)->m_fValue;
 	if (m_weapon.m_weapDataCur.m_fRange != fValue)
 		m_weapon.setRange(fValue);
 	return;
@@ -1568,7 +1557,7 @@ void hack::weaponForceOnPed(feat* feature)
 		}
 		return;
 	}
-	float fValue = m_weapon.m_weapDataRestore.m_fForceOnPed * static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = m_weapon.m_weapDataRestore.m_fForceOnPed * static_cast <featSlider*>(feature)->m_fValue;
 	if (m_weapon.m_weapDataCur.m_fForceOnPed != fValue)
 		m_weapon.setForceOnPed(fValue);
 	return;
@@ -1586,7 +1575,7 @@ void hack::weaponForceOnVehicle(feat* feature)
 		}
 		return;
 	}
-	float fValue = m_weapon.m_weapDataRestore.m_fForceOnVehicle * static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = m_weapon.m_weapDataRestore.m_fForceOnVehicle * static_cast <featSlider*>(feature)->m_fValue;
 	if (m_weapon.m_weapDataCur.m_fForceOnVehicle != fValue)
 		m_weapon.setForceOnVehicle(fValue);
 	return;
@@ -1604,7 +1593,7 @@ void hack::weaponForceOnHeli(feat* feature)
 		}
 		return;
 	}
-	float fValue = m_weapon.m_weapDataRestore.m_fForceOnHeli * static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = m_weapon.m_weapDataRestore.m_fForceOnHeli * static_cast <featSlider*>(feature)->m_fValue;
 	if (m_weapon.m_weapDataCur.m_fForceOnHeli != fValue)
 		m_weapon.setForceOnHeli(fValue);
 	return;
@@ -1626,7 +1615,7 @@ void hack::weaponBulletEdit(feat* feature)
 	}
 	if (m_weapon.m_weapDataCur.m_dwImpactType != ImpactTypeEnum::Explosives)
 		m_weapon.setImpactType(ImpactTypeEnum::Explosives);
-	if (m_weapon.m_weapDataCur.m_dwImpactExplosion !=  m_explosion)
+	if (m_weapon.m_weapDataCur.m_dwImpactExplosion != m_explosion)
 		m_weapon.setImpactExplosion(m_explosion);
 	return;
 }
@@ -1645,7 +1634,7 @@ void hack::runSpeed(feat* feature)
 		return;
 	}
 	m_player.getRunSpeed();
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_player.m_flRunSpd != fValue)
 		m_player.setRunSpeed(fValue);
 	return;
@@ -1665,7 +1654,7 @@ void hack::swimSpeed(feat* feature)
 		return;
 	}
 	m_player.getSwimSpeed();
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_player.m_flSwimSpd != fValue)
 		m_player.setSwimSpeed(fValue);
 	return;
@@ -1716,14 +1705,14 @@ void hack::frameFlags(feat* featSuperJump, feat* featExplosiveMelee, feat* featF
 	{
 		if (!featSuperJump->m_bRestored || !featExplosiveMelee->m_bRestored || !featFireAmmo->m_bRestored || !featExplosiveAmmo->m_bRestored)
 		{
-			g_pMemMan->readMem<BYTE>((DWORD_PTR)m_hModule + ADDRESS_FRAME_FLAGS, cur, sizeof(cur), PAGE_EXECUTE_READWRITE);
+			g_pMemMan->readMem <BYTE>((DWORD_PTR) m_hModule + ADDRESS_FRAME_FLAGS, cur, sizeof(cur), PAGE_EXECUTE_READWRITE);
 			if (cur[0] != original[0])
-				g_pMemMan->writeMem<BYTE>((DWORD_PTR)m_hModule + ADDRESS_FRAME_FLAGS, original, sizeof(original), PAGE_EXECUTE_READWRITE);
+				g_pMemMan->writeMem <BYTE>((DWORD_PTR) m_hModule + ADDRESS_FRAME_FLAGS, original, sizeof(original), PAGE_EXECUTE_READWRITE);
 
-			featSuperJump->m_bRestored = true;
+			featSuperJump->m_bRestored      = true;
 			featExplosiveMelee->m_bRestored = true;
-			featFireAmmo->m_bRestored = true;
-			featExplosiveAmmo->m_bRestored = true;
+			featFireAmmo->m_bRestored       = true;
+			featExplosiveAmmo->m_bRestored  = true;
 		}
 		return;
 	}
@@ -1737,10 +1726,11 @@ void hack::frameFlags(feat* featSuperJump, feat* featExplosiveMelee, feat* featF
 	if (featExplosiveAmmo->m_bOn)
 		dwValue += 8;
 
-	g_pMemMan->readMem<BYTE>((DWORD_PTR)m_hModule + ADDRESS_FRAME_FLAGS, cur, sizeof(cur), PAGE_EXECUTE_READWRITE);
+	g_pMemMan->readMem <BYTE>((DWORD_PTR) m_hModule + ADDRESS_FRAME_FLAGS, cur, sizeof(cur), PAGE_EXECUTE_READWRITE);
 	BYTE value[5] = { 0x90, 0x90, 0x90, 0x90, 0x90 };
-	if (cur[0] != value[0]) {
-		g_pMemMan->writeMem<BYTE>((DWORD_PTR)m_hModule + ADDRESS_FRAME_FLAGS, value, sizeof(value), PAGE_EXECUTE_READWRITE);
+	if (cur[0] != value[0])
+	{
+		g_pMemMan->writeMem <BYTE>((DWORD_PTR) m_hModule + ADDRESS_FRAME_FLAGS, value, sizeof(value), PAGE_EXECUTE_READWRITE);
 	}
 	m_player.getFrameFlags();
 	if (m_player.m_dwFrameFlags != dwValue)
@@ -1769,45 +1759,45 @@ void hack::vehicleGod(feat* feature)
 
 void hack::infAmmo(feat* feature)
 {
-	BYTE	cur[3] = {};
+	BYTE cur[3] = {};
 	if (!feature->m_bOn)
 	{
 		if (!feature->m_bRestored)
 		{
-			g_pMemMan->readMem<BYTE>((DWORD_PTR)m_hModule + ADDRESS_AMMO, cur, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
-			BYTE	value[3] = { 0x41, 0x2B, 0xD1 };
+			g_pMemMan->readMem <BYTE>((DWORD_PTR) m_hModule + ADDRESS_AMMO, cur, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
+			BYTE value[3] = { 0x41, 0x2B, 0xD1 };
 			if (cur[0] != value[0])
-				g_pMemMan->writeMem<BYTE>((DWORD_PTR)m_hModule + ADDRESS_AMMO, value , sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
+				g_pMemMan->writeMem <BYTE>((DWORD_PTR) m_hModule + ADDRESS_AMMO, value, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
 			feature->m_bRestored = true;
 		}
 		return;
 	}
-	g_pMemMan->readMem<BYTE>((DWORD_PTR)m_hModule + ADDRESS_AMMO, cur, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
-	BYTE	value[3] = { 0x90, 0x90, 0x90 };
+	g_pMemMan->readMem <BYTE>((DWORD_PTR) m_hModule + ADDRESS_AMMO, cur, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
+	BYTE value[3] = { 0x90, 0x90, 0x90 };
 	if (cur[0] != value[0])
-		g_pMemMan->writeMem<BYTE>((DWORD_PTR)m_hModule + ADDRESS_AMMO, value, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
+		g_pMemMan->writeMem <BYTE>((DWORD_PTR) m_hModule + ADDRESS_AMMO, value, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
 	return;
 }
 
 void hack::noReload(feat* feature)
 {
-	BYTE	cur[3] = {};
+	BYTE cur[3] = {};
 	if (!feature->m_bOn)
 	{
 		if (!feature->m_bRestored)
 		{
-			g_pMemMan->readMem<BYTE>((DWORD_PTR)m_hModule + ADDRESS_MAGAZINE, cur, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
-			BYTE	value[3] = { 0x41, 0x2B, 0xC9 };
+			g_pMemMan->readMem <BYTE>((DWORD_PTR) m_hModule + ADDRESS_MAGAZINE, cur, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
+			BYTE value[3] = { 0x41, 0x2B, 0xC9 };
 			if (cur[0] != value[0])
-				g_pMemMan->writeMem<BYTE>((DWORD_PTR)m_hModule + ADDRESS_MAGAZINE, value, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
+				g_pMemMan->writeMem <BYTE>((DWORD_PTR) m_hModule + ADDRESS_MAGAZINE, value, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
 			feature->m_bRestored = true;
 		}
 		return;
 	}
-	g_pMemMan->readMem<BYTE>((DWORD_PTR)m_hModule + ADDRESS_MAGAZINE, cur, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
-	BYTE	value[3] = { 0x90, 0x90, 0x90 };
+	g_pMemMan->readMem <BYTE>((DWORD_PTR) m_hModule + ADDRESS_MAGAZINE, cur, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
+	BYTE value[3] = { 0x90, 0x90, 0x90 };
 	if (cur[0] != value[0])
-		g_pMemMan->writeMem<BYTE>((DWORD_PTR)m_hModule + ADDRESS_MAGAZINE, value, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
+		g_pMemMan->writeMem <BYTE>((DWORD_PTR) m_hModule + ADDRESS_MAGAZINE, value, sizeof(BYTE) * 3, PAGE_EXECUTE_READWRITE);
 	return;
 }
 
@@ -1861,7 +1851,7 @@ void hack::vehicleAccel(feat* feature)
 		}
 		return;
 	}
-	float fValue = m_vehicle.m_handlingRestore.m_fAcceleration * static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = m_vehicle.m_handlingRestore.m_fAcceleration * static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fAcceleration != fValue)
 		m_vehicle.setAcceleration(fValue);
 	return;
@@ -1879,7 +1869,7 @@ void hack::vehicleBrake(feat* feature)
 		}
 		return;
 	}
-	float fValue = m_vehicle.m_handlingRestore.m_fBrakeForce * static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = m_vehicle.m_handlingRestore.m_fBrakeForce * static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fBrakeForce != fValue)
 		m_vehicle.setBrakeForce(fValue);
 	return;
@@ -1916,7 +1906,7 @@ void hack::vehicleTraction(feat* feature)
 		}
 		return;
 	}
-	float fValue = m_vehicle.m_handlingRestore.m_fTractionCurveMin * static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = m_vehicle.m_handlingRestore.m_fTractionCurveMin * static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fTractionCurveMin != fValue)
 		m_vehicle.setTractionCurveMin(fValue);
 	return;
@@ -1936,7 +1926,7 @@ void hack::vehicleGravity(feat* feature)
 		return;
 	}
 	m_vehicle.getGravity();
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_fGravity != fValue)
 		m_vehicle.setGravity(fValue);
 	return;
@@ -1966,10 +1956,10 @@ void hack::wanted(feat* feature)
 	if (!feature->m_bOn)
 		return;
 	m_player.getWanted();
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
-	if (m_player.m_dwWanted != (DWORD)fValue)
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
+	if (m_player.m_dwWanted != (DWORD) fValue)
 	{
-		m_player.setWanted((DWORD)fValue);
+		m_player.setWanted((DWORD) fValue);
 		feat* fpNeverWanted = g_pSettings->getFeature(g_iFeature[FEATURE_P_NEVERWANTED]);
 		if (fpNeverWanted->m_bOn)
 			fpNeverWanted->toggle();
@@ -1989,10 +1979,10 @@ void hack::bulletBatch(feat* feature)
 		}
 		return;
 	}
-	float fValue = m_weapon.m_weapDataRestore.m_dwBulletBatch * static_cast<featSlider*>(feature)->m_fValue;
-	fValue = (fValue > 25.f) ? 25.f : fValue;
+	float fValue = m_weapon.m_weapDataRestore.m_dwBulletBatch * static_cast <featSlider*>(feature)->m_fValue;
+	fValue       = (fValue > 25.f) ? 25.f : fValue;
 	if (m_weapon.m_weapDataCur.m_dwBulletBatch != fValue)
-		m_weapon.setBulletBatch((DWORD)fValue);
+		m_weapon.setBulletBatch((DWORD) fValue);
 	return;
 }
 
@@ -2008,7 +1998,7 @@ void hack::muzzleVelocity(feat* feature)
 		}
 		return;
 	}
-	float fValue = m_weapon.m_weapDataRestore.m_fMuzzleVelocity * static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = m_weapon.m_weapDataRestore.m_fMuzzleVelocity * static_cast <featSlider*>(feature)->m_fValue;
 	if (m_weapon.m_weapDataCur.m_fMuzzleVelocity != fValue)
 		m_weapon.setMuzzleVelocity(fValue);
 	return;
@@ -2026,7 +2016,7 @@ void hack::vehicleDeformation(feat* feature)
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fDeformationDamageMult != fValue)
 		m_vehicle.setDeformationDamageMult(fValue);
 	return;
@@ -2044,7 +2034,7 @@ void hack::vehicleUpShift(feat* feature)
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fUpShift != fValue)
 		m_vehicle.setUpShift(fValue);
 	return;
@@ -2062,13 +2052,13 @@ void hack::vehicleSuspensionForce(feat* feature)
 		}
 		return;
 	}
-	float fValue = m_vehicle.m_handlingRestore.m_fSuspensionForce * static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = m_vehicle.m_handlingRestore.m_fSuspensionForce * static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fSuspensionForce != fValue)
 		m_vehicle.setSuspensionForce(fValue);
 	return;
 }
 
-void	hack::vehicleDownShift(feat* feature)
+void hack::vehicleDownShift(feat* feature)
 {
 	if (!feature->m_bOn)
 	{
@@ -2080,7 +2070,7 @@ void	hack::vehicleDownShift(feat* feature)
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fDownShift != fValue)
 		m_vehicle.setDownShift(fValue);
 	return;
@@ -2098,7 +2088,7 @@ void hack::vehicleMass(feat* feature)
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fMass != fValue)
 		m_vehicle.setMass(fValue);
 	return;
@@ -2116,7 +2106,7 @@ void hack::vehicleBuoyancy(feat* feature)
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fBuoyancy != fValue)
 		m_vehicle.setBuoyancy(fValue);
 	return;
@@ -2134,7 +2124,7 @@ void hack::vehicleHandbrakeForce(feat* feature)
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fHandbrakeForce != fValue)
 		m_vehicle.setHandbrakeForce(fValue);
 	return;
@@ -2173,7 +2163,7 @@ void hack::vehicleRocketRechargeSpeed(feat* feature)
 		return;
 	}
 	m_vehicle.getRocketRechargeSpeed();
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_fRocketRechargeSpeed != fValue)
 		m_vehicle.setRocketRechargeSpeed(fValue);
 	return;
@@ -2191,7 +2181,7 @@ void hack::vehicleSuspensionHeigh(feat* feature)
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fSuspensionHeigh != fValue)
 		m_vehicle.setSuspensionHeigh(fValue);
 	return;
@@ -2209,7 +2199,7 @@ void hack::vehicleColisionDamageMult(feat* feature)
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fColisionDamageMult != fValue)
 		m_vehicle.setColisionDamageMult(fValue);
 	return;
@@ -2227,7 +2217,7 @@ void hack::vehicleWeaponDamageMult(feat* feature)
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fWeaponDamageMult != fValue)
 		m_vehicle.setWeaponDamageMult(fValue);
 	return;
@@ -2245,7 +2235,7 @@ void hack::vehicleEngineDamageMult(feat* feature)
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
 	if (m_vehicle.m_handlingCur.m_fEngineDamageMult != fValue)
 		m_vehicle.setEngineDamageMult(fValue);
 	return;
@@ -2257,14 +2247,14 @@ void hack::tunableRpMult(feat* feature)
 	{
 		if (!feature->m_bRestored)
 		{
-			scriptGlobal(GLOBAL_TUNEABLES).at(1).as<float>() = 1;
-			feature->m_bRestored = true;
+			scriptGlobal(GLOBAL_TUNEABLES).at(1).as <float>() = 1;
+			feature->m_bRestored                              = true;
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
-	if (scriptGlobal(GLOBAL_TUNEABLES).at(1).as<float>() != fValue)
-		scriptGlobal(GLOBAL_TUNEABLES).at(1).as<float>() = fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
+	if (scriptGlobal(GLOBAL_TUNEABLES).at(1).as <float>() != fValue)
+		scriptGlobal(GLOBAL_TUNEABLES).at(1).as <float>() = fValue;
 
 	return;
 }
@@ -2275,14 +2265,14 @@ void hack::tunableMissionPayout(feat* feature)
 	{
 		if (!feature->m_bRestored)
 		{
-			scriptGlobal(GLOBAL_TUNEABLES).at(2424).as<float>() = 0;
-			feature->m_bRestored = true;
+			scriptGlobal(GLOBAL_TUNEABLES).at(2424).as <float>() = 0;
+			feature->m_bRestored                                 = true;
 		}
 		return;
 	}
-	float fValue = static_cast<featSlider*>(feature)->m_fValue;
-	if (scriptGlobal(GLOBAL_TUNEABLES).at(2424).as<float>() != fValue)
-		scriptGlobal(GLOBAL_TUNEABLES).at(2424).as<float>() = fValue;
+	float fValue = static_cast <featSlider*>(feature)->m_fValue;
+	if (scriptGlobal(GLOBAL_TUNEABLES).at(2424).as <float>() != fValue)
+		scriptGlobal(GLOBAL_TUNEABLES).at(2424).as <float>() = fValue;
 	return;
 }
 
@@ -2292,13 +2282,13 @@ void hack::tunableOrbitalCannonCooldown(feat* feature)
 	{
 		if (!feature->m_bRestored)
 		{
-			scriptGlobal(GLOBAL_TUNEABLES).at(22764).as<int>() = 2880000;
-			feature->m_bRestored = true;
+			scriptGlobal(GLOBAL_TUNEABLES).at(22764).as <int>() = 2880000;
+			feature->m_bRestored                                = true;
 		}
 		return;
 	}
-	if (scriptGlobal(GLOBAL_TUNEABLES).at(22764).as<int>() != 0)
-		scriptGlobal(GLOBAL_TUNEABLES).at(22764).as<int>() = 0;
+	if (scriptGlobal(GLOBAL_TUNEABLES).at(22764).as <int>() != 0)
+		scriptGlobal(GLOBAL_TUNEABLES).at(22764).as <int>() = 0;
 	return;
 }
 
@@ -2308,13 +2298,13 @@ void hack::tunableBunkerResearch(feat* feature)
 	{
 		if (!feature->m_bRestored)
 		{
-			scriptGlobal(GLOBAL_TUNEABLES).at(21560).as<int>() = 0;
-			feature->m_bRestored = true;
+			scriptGlobal(GLOBAL_TUNEABLES).at(21560).as <int>() = 0;
+			feature->m_bRestored                                = true;
 		}
 		return;
 	}
-	if (scriptGlobal(GLOBAL_TUNEABLES).at(21560).as<int>() != 1)
-		scriptGlobal(GLOBAL_TUNEABLES).at(21560).as<int>() = 1;
+	if (scriptGlobal(GLOBAL_TUNEABLES).at(21560).as <int>() != 1)
+		scriptGlobal(GLOBAL_TUNEABLES).at(21560).as <int>() = 1;
 	return;
 }
 
@@ -2324,22 +2314,22 @@ void hack::tunableAntiIdleKick(feat* feature)
 	{
 		if (!feature->m_bRestored)
 		{
-			scriptGlobal(GLOBAL_TUNEABLES).at(87).as<int>() = 120000;
-			scriptGlobal(GLOBAL_TUNEABLES).at(88).as<int>() = 300000;
-			scriptGlobal(GLOBAL_TUNEABLES).at(89).as<int>() = 600000;
-			scriptGlobal(GLOBAL_TUNEABLES).at(90).as<int>() = 900000;
-			feature->m_bRestored = true;
+			scriptGlobal(GLOBAL_TUNEABLES).at(87).as <int>() = 120000;
+			scriptGlobal(GLOBAL_TUNEABLES).at(88).as <int>() = 300000;
+			scriptGlobal(GLOBAL_TUNEABLES).at(89).as <int>() = 600000;
+			scriptGlobal(GLOBAL_TUNEABLES).at(90).as <int>() = 900000;
+			feature->m_bRestored                             = true;
 		}
 		return;
 	}
-	if (scriptGlobal(GLOBAL_TUNEABLES).at(87).as<int>() != 2000000000)
-		scriptGlobal(GLOBAL_TUNEABLES).at(87).as<int>() = 2000000000;
-	if (scriptGlobal(GLOBAL_TUNEABLES).at(88).as<int>() != 2000000000)
-		scriptGlobal(GLOBAL_TUNEABLES).at(88).as<int>() = 2000000000;
-	if (scriptGlobal(GLOBAL_TUNEABLES).at(89).as<int>() != 2000000000)
-		scriptGlobal(GLOBAL_TUNEABLES).at(89).as<int>() = 2000000000;
-	if (scriptGlobal(GLOBAL_TUNEABLES).at(90).as<int>() != 2000000000)
-		scriptGlobal(GLOBAL_TUNEABLES).at(90).as<int>() = 2000000000;
+	if (scriptGlobal(GLOBAL_TUNEABLES).at(87).as <int>() != 2000000000)
+		scriptGlobal(GLOBAL_TUNEABLES).at(87).as <int>() = 2000000000;
+	if (scriptGlobal(GLOBAL_TUNEABLES).at(88).as <int>() != 2000000000)
+		scriptGlobal(GLOBAL_TUNEABLES).at(88).as <int>() = 2000000000;
+	if (scriptGlobal(GLOBAL_TUNEABLES).at(89).as <int>() != 2000000000)
+		scriptGlobal(GLOBAL_TUNEABLES).at(89).as <int>() = 2000000000;
+	if (scriptGlobal(GLOBAL_TUNEABLES).at(90).as <int>() != 2000000000)
+		scriptGlobal(GLOBAL_TUNEABLES).at(90).as <int>() = 2000000000;
 
 	return;
 }
@@ -2354,8 +2344,8 @@ void hack::removeSuicideCooldown(feat* feature)
 		}
 		return;
 	}
-	if (scriptGlobal(GLOBAL_MERRYWEATHER).at(6706).as<int>() != -1)
-		scriptGlobal(GLOBAL_MERRYWEATHER).at(6706).as<int>() = -1;
+	if (scriptGlobal(GLOBAL_MERRYWEATHER).at(6706).as <int>() != -1)
+		scriptGlobal(GLOBAL_MERRYWEATHER).at(6706).as <int>() = -1;
 
 	return;
 }
@@ -2370,10 +2360,10 @@ void hack::removePassiveModeCooldown(feat* feature)
 		}
 		return;
 	}
-	if (scriptGlobal(GLOBAL_MERRYWEATHER).at(4459).as<int>() != 0)
-		scriptGlobal(GLOBAL_MERRYWEATHER).at(4459).as<int>() = 0;
-	if (scriptGlobal(1703316).as<int>() != 0)
-		scriptGlobal(1703316).as<int>() = 0;
+	if (scriptGlobal(GLOBAL_MERRYWEATHER).at(4459).as <int>() != 0)
+		scriptGlobal(GLOBAL_MERRYWEATHER).at(4459).as <int>() = 0;
+	if (scriptGlobal(1703316).as <int>() != 0)
+		scriptGlobal(1703316).as <int>() = 0;
 
 	return;
 }
@@ -2384,13 +2374,13 @@ void hack::allowSellOnNonPublic(feat* feature)
 	{
 		if (!feature->m_bRestored)
 		{
-			scriptGlobal(2453009).at(744).as<int>() = 1;
-			feature->m_bRestored = true;
+			scriptGlobal(2453009).at(744).as <int>() = 1;
+			feature->m_bRestored                     = true;
 		}
 		return;
 	}
-	if (scriptGlobal(2453009).at(744).as<int>() != 0)
-		scriptGlobal(2453009).at(744).as<int>() = 0;
+	if (scriptGlobal(2453009).at(744).as <int>() != 0)
+		scriptGlobal(2453009).at(744).as <int>() = 0;
 
 	return;
 }
@@ -2401,13 +2391,13 @@ void hack::instantBullShark(feat* feature)
 	{
 		if (!feature->m_bRestored)
 		{
-			scriptGlobal(GLOBAL_LESTER_TIMER).at(4013).as<int>() = 5;
-			feature->m_bRestored = true;
+			scriptGlobal(GLOBAL_LESTER_TIMER).at(4013).as <int>() = 5;
+			feature->m_bRestored                                  = true;
 		}
 		return;
 	}
-	if (scriptGlobal(GLOBAL_LESTER_TIMER).at(4013).as<int>() == 0)
-		scriptGlobal(GLOBAL_LESTER_TIMER).at(4013).as<int>() = 5;
+	if (scriptGlobal(GLOBAL_LESTER_TIMER).at(4013).as <int>() == 0)
+		scriptGlobal(GLOBAL_LESTER_TIMER).at(4013).as <int>() = 5;
 
 	return;
 }
@@ -2453,16 +2443,16 @@ void hack::offRadar(feat* feature)
 	{
 		if (!feature->m_bRestored)
 		{
-			scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(209).as<int>() = 0;
-			feature->m_bRestored = true;
+			scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(209).as <int>() = 0;
+			feature->m_bRestored                                                                           = true;
 		}
 		return;
 	}
-	if (scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(209).as<int>() == 0)
+	if (scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(209).as <int>() == 0)
 	{
-		scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(209).as<int>() = 1;
-		scriptGlobal(GLOBAL_LESTER_TIMER).at(70).as<int>() = getNetworkTime();
-		scriptGlobal(GLOBAL_VMY_CAR).at(4628).as<int>() = 3;
+		scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(209).as <int>() = 1;
+		scriptGlobal(GLOBAL_LESTER_TIMER).at(70).as <int>()                                            = getNetworkTime();
+		scriptGlobal(GLOBAL_VMY_CAR).at(4628).as <int>()                                               = 3;
 	}
 
 	return;
@@ -2474,16 +2464,16 @@ void hack::ghostOragnization(feat* feature)
 	{
 		if (!feature->m_bRestored)
 		{
-			scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(209).as<int>() = 0;
-			feature->m_bRestored = true;
+			scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(209).as <int>() = 0;
+			feature->m_bRestored                                                                           = true;
 		}
 		return;
 	}
-	if (scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(209).as<int>() == 0)
+	if (scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(209).as <int>() == 0)
 	{
-		scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(209).as<int>() = 1;
-		scriptGlobal(GLOBAL_LESTER_TIMER).at(70).as<int>() = getNetworkTime();
-		scriptGlobal(GLOBAL_VMY_CAR).at(4628).as<int>() = 4;
+		scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(209).as <int>() = 1;
+		scriptGlobal(GLOBAL_LESTER_TIMER).at(70).as <int>()                                            = getNetworkTime();
+		scriptGlobal(GLOBAL_VMY_CAR).at(4628).as <int>()                                               = 4;
 	}
 
 	return;
@@ -2495,18 +2485,18 @@ void hack::blindCops(feat* feature)
 	{
 		if (!feature->m_bRestored)
 		{
-			scriptGlobal(GLOBAL_VMY_CAR).at(4623).as<int>() = 0;
-			scriptGlobal(GLOBAL_VMY_CAR).at(4625).as<int>() = 0;
-			scriptGlobal(GLOBAL_VMY_CAR).at(4622).as<int>() = 0;
-			feature->m_bRestored = true;
+			scriptGlobal(GLOBAL_VMY_CAR).at(4623).as <int>() = 0;
+			scriptGlobal(GLOBAL_VMY_CAR).at(4625).as <int>() = 0;
+			scriptGlobal(GLOBAL_VMY_CAR).at(4622).as <int>() = 0;
+			feature->m_bRestored                             = true;
 		}
 		return;
 	}
-	if (scriptGlobal(GLOBAL_VMY_CAR).at(4623).as<int>() == 0)
+	if (scriptGlobal(GLOBAL_VMY_CAR).at(4623).as <int>() == 0)
 	{
-		scriptGlobal(GLOBAL_VMY_CAR).at(4623).as<int>() = 1;
-		scriptGlobal(GLOBAL_VMY_CAR).at(4625).as<int>() = getNetworkTime() + 99999999;
-		scriptGlobal(GLOBAL_VMY_CAR).at(4622).as<int>() = 5;
+		scriptGlobal(GLOBAL_VMY_CAR).at(4623).as <int>() = 1;
+		scriptGlobal(GLOBAL_VMY_CAR).at(4625).as <int>() = getNetworkTime() + 99999999;
+		scriptGlobal(GLOBAL_VMY_CAR).at(4622).as <int>() = 5;
 	}
 
 	return;
@@ -2518,16 +2508,16 @@ void hack::revealPlayers(feat* feature)
 	{
 		if (!feature->m_bRestored)
 		{
-			scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(212).as<int>() = 0;
-			scriptGlobal(GLOBAL_LESTER_TIMER).at(71).as<int>() = 0;
-			feature->m_bRestored = true;
+			scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(212).as <int>() = 0;
+			scriptGlobal(GLOBAL_LESTER_TIMER).at(71).as <int>()                                            = 0;
+			feature->m_bRestored                                                                           = true;
 		}
 		return;
 	}
-	if (scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(212).as<int>() == 0)
+	if (scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(212).as <int>() == 0)
 	{
-		scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(212).as<int>() = 1;
-		scriptGlobal(GLOBAL_LESTER_TIMER).at(71).as<int>() = getNetworkTime() + 99999999;
+		scriptGlobal(GLOBAL_LESTER_HELP).at(getPlayerId(), GLOBAL_LESTER_HELP_SIZE).at(212).as <int>() = 1;
+		scriptGlobal(GLOBAL_LESTER_TIMER).at(71).as <int>()                                            = getNetworkTime() + 99999999;
 	}
 
 	return;
@@ -2543,8 +2533,8 @@ void hack::disableThePhone(feat* feature)
 		}
 		return;
 	}
-	
-	scriptGlobal(19798).at(1).as<int>() = 3;
+
+	scriptGlobal(19798).at(1).as <int>() = 3;
 
 	return;
 }
@@ -2558,21 +2548,23 @@ void hack::antiCEOKick(feat* feature)
 void hack::antiKickToSP(feat* feature)
 {
 	// TODO: need to update offsets
-	constexpr ptrdiff_t offests[] = { 6,16,20,341,383,632,647,651,657,658,752 };
+	constexpr ptrdiff_t offests[] = { 6, 16, 20, 341, 383, 632, 647, 651, 657, 658, 752 };
 	if (!feature->m_bOn)
 	{
 		if (!feature->m_bRestored)
 		{
-			for (auto index : offests) {
-				scriptGlobal(GLOBAL_BLOCK_SCRIPT_EVENTS).at(index).as<int>() = 0;
+			for (auto index : offests)
+			{
+				scriptGlobal(GLOBAL_BLOCK_SCRIPT_EVENTS).at(index).as <int>() = 0;
 			}
 			feature->m_bRestored = true;
 		}
 		return;
 	}
-	for (auto index : offests) {
-		if (scriptGlobal(GLOBAL_BLOCK_SCRIPT_EVENTS).at(index).as<int>() != 1)
-			scriptGlobal(GLOBAL_BLOCK_SCRIPT_EVENTS).at(index).as<int>() = 1;
+	for (auto index : offests)
+	{
+		if (scriptGlobal(GLOBAL_BLOCK_SCRIPT_EVENTS).at(index).as <int>() != 1)
+			scriptGlobal(GLOBAL_BLOCK_SCRIPT_EVENTS).at(index).as <int>() = 1;
 	}
 
 	return;
@@ -2623,14 +2615,13 @@ void hack::triggerBot(feat* feature)
 		}
 		return;
 	}
-	uintptr_t pPed = g_pMemMan->readMem<uintptr_t>((DWORD_PTR)m_hModule + ADDRESS_AIMING_PED);
-	if (pPed != NULL && g_pMemMan->readMem<float>(pPed + OFFSET_ENTITY_HEALTH) > 0 && !m_bMouseDown)
+	uintptr_t pPed = g_pMemMan->readMem <uintptr_t>((DWORD_PTR) m_hModule + ADDRESS_AIMING_PED);
+	if (pPed != NULL && g_pMemMan->readMem <float>(pPed + OFFSET_ENTITY_HEALTH) > 0 && !m_bMouseDown)
 	{
-
 		LMouseDown();
 		m_bMouseDown = true;
 	}
-	else if(m_bMouseDown)
+	else if (m_bMouseDown)
 	{
 		LMouseUp();
 		m_bMouseDown = false;
@@ -2645,16 +2636,16 @@ void hack::mpIndex(feat* feature)
 	{
 		if (!feature->m_bRestored)
 		{
-			m_mpId = "MP0_";
-			feature->m_szName = L"切换角色 [当前：1]";
+			m_mpId               = "MP0_";
+			feature->m_szName    = L"切换角色 [当前：1]";
 			feature->m_bRestored = true;
 		}
 		return;
 	}
 
-	m_mpId = "MP1_";
+	m_mpId            = "MP1_";
 	feature->m_szName = L"切换角色 [当前：2]";
-	
+
 	return;
 }
 
@@ -2662,17 +2653,16 @@ void hack::about(int arg)
 {
 	switch (arg)
 	{
-	case 0:
-		WinExec("explorer.exe https://github.com/AmazingPP/subVerison_GTAV_Hack", SW_SHOW);
-		break;
-	case 1:
-		WinExec("explorer.exe https://github.com/AmazingPP/subVerison_GTAV_Hack/releases", SW_SHOW);
-		break;
-	case 2:
-		WinExec("explorer.exe https://github.com/AmazingPP/subVerison_GTAV_Hack/blob/master/README.md#%E6%8D%90%E8%B5%A0", SW_SHOW);
-		break;
-	default:
-		break;
+		case 0:
+			WinExec("explorer.exe https://github.com/AmazingPP/subVerison_GTAV_Hack", SW_SHOW);
+			break;
+		case 1:
+			WinExec("explorer.exe https://github.com/AmazingPP/subVerison_GTAV_Hack/releases", SW_SHOW);
+			break;
+		case 2:
+			WinExec("explorer.exe https://github.com/AmazingPP/subVerison_GTAV_Hack/blob/master/README.md#%E6%8D%90%E8%B5%A0", SW_SHOW);
+			break;
+		default:
+			break;
 	}
-	
 }
