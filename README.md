@@ -1,9 +1,9 @@
 ﻿# subVersion_GTAV_Hack
 subVersion重置版——GTAV线上外置修改器
 
-[![](https://img.shields.io/badge/Powerd%20By-subVersion-brightgreen)](https://github.com/sub1to/subVersion_GTAO_Hack)
-![download](https://img.shields.io/github/downloads/AmazingPP/subVerison_GTAV_Hack/total)
-![license](https://img.shields.io/github/license/AmazingPP/subVerison_GTAV_Hack)
+[![](https://img.shields.io/badge/Powerd%20By-subVersion-brightgreen)](https://github.com/Galaxy-Studio-Code/subVersion_GTAV_Hack)
+![download](https://img.shields.io/github/downloads/Galaxy-Studio-Code/subVersion_GTAV_Hack/total)
+![license](https://img.shields.io/github/license/Galaxy-Studio-Code/subVersion_GTAV_Hack)
 ```
                      __       __     __                                __                     
                     |  \     |  \   |  \                              |  \                    
@@ -35,10 +35,14 @@ subVersion重置版——GTAV线上外置修改器
 
 `subVersion` 最开始是[@sub1to](https://github.com/sub1to) 开发的，原项目开发终止于2017年6月。
 
+在经过[@amazingPP](https://github.com/AmazingPP) 重置后，于2021年8月停止更新。
+
 `subVersion` 是一款支持线上模式的外置修改器，带有d3d9实现的UI。
 
 ## 支持的版本
 [GTAV 1.57](https://www.rockstargames.com/zh/games/info/V)
+
+更新中
 
 线下及线上
 
@@ -59,7 +63,7 @@ Social Club版
 半无敌
 通缉等级
 永不通缉
-反NPC（杀死任何攻击你的NPC）
+反NPC
 NPC无视玩家
 奔跑速度（1-5倍）
 游泳速度（1-5倍）
@@ -378,7 +382,6 @@ F8       | 补满所有武器弹药
 [New Issues](https://github.com/AmazingPP/subVerison_GTAV_Hack/issues/new) - 🏗 创建新的问题反馈
 
 ## 已知问题
-- 无敌开启时，反NPC不会生效。必须使用半无敌
 - 传送到目标点仅限于任务目标（黄点），NPC和可拾取目标（绿点）等其他。
 - 如果尚未设定新的导航点，则传送到目标会传送到先前的导航点。
 
@@ -393,23 +396,4 @@ F8       | 补满所有武器弹药
 ## 相关仓库
 
 - [subVersion GTAO Hack](https://github.com/sub1to/subVersion_GTAO_Hack) — 💌 原版subVersion。
-
-## 维护者
-
-[@AmazingPP](https://github.com/AmazingPP)
-
-## 使用许可
-
-[GPL-3.0](LICENSE) © AmazingPP
-
-
-## 捐赠🧧
-感谢您使用 `subVersion` 
-
-感谢您的捐赠，它将给予我动力，更专注于 `subVersion` 的后续开发。
-
-再次感谢您的支持。
-
-[点击捐赠](https://www.zhaofupeng.com/2018/12/25/donate/)
-
-<img src="https://github.com/AmazingPP/subVerison_GTAV_Hack/blob/master/Donate/QRCode.jpg" width="30%" height="30%"/>
+- [subVerison_GTAV_Hack](https://github.com/AmazingPP/subVerison_GTAV_Hack) — 💌 AmazingPP重制版subVersion。
